@@ -127,6 +127,7 @@ h6 {
 	max-height: 40px;
 	background-color: #fff;
 	padding: 5px;
+	border-radius: 2px;
 }
 
 /*--------------------------------------------------------------
@@ -185,7 +186,7 @@ h6 {
 	border-radius: 50px;
 	color: #fff;
 	font-size: 14px;
-	border: 2px solid #ffffff;
+	border: 3px solid #ffffff;
 	font-weight: 600;
 	background: #111820;
 }
@@ -330,8 +331,12 @@ h6 {
 --------------------------------------------------------------*/
 #hero {
 	width: 100%;
-	height: 100vh;
+	height: 90vh;
 	background: #fff;
+}
+
+#hero img {
+	background-color: #d7d7d7;
 }
 
 #hero .container {
@@ -360,10 +365,22 @@ h6 {
 	display: inline-block;
 	padding: 10px 28px 11px 28px;
 	border-radius: 50px;
-	transition: 0.5s;
 	margin: 10px 0 0 0;
+	border: #111820 3px solid;
 	color: #fff;
 	background: #111820;
+}
+
+#hero .btn-get-started:focus {
+	background: #ff0013;
+	border-color: #111820;
+	color: #fff;
+}
+
+#hero .btn-get-started:hover {
+	background: #ff0013;
+	border-color: #111820;
+	color: #fff;
 }
 
 #hero .btn-get-started2 {
@@ -374,7 +391,6 @@ h6 {
 	display: inline-block;
 	padding: 10px 28px 11px 28px;
 	border-radius: 50px;
-	transition: 0.5s;
 	margin: 10px 0 0 0;
 	color: #fff;
 	background: #ff0013;
@@ -401,8 +417,7 @@ h6 {
 
 	#hero .hero-img img {
 		width: 50%;
-		background-color: #808080;
-}
+	}
 }
 
 @media (max-width: 768px) {
