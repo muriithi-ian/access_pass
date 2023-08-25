@@ -9,3 +9,6 @@ def base(request):
 
 def home(request):
     return render(request, 'home.html')
+
+def access_form(request):
+    return render(request, 'access_forms.html')
