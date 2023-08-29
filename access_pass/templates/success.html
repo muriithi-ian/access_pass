@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="card d-flex justify-content-center text-center  ">
+    <div style="border-radius:200px; height:200px; width:200px; background: #F8FAF5; margin:0 auto;">
+        <i class="checkmark d-flex justify-content-center">✓</i>
+    </div>
+    <h1 class="d-flex justify-content-center">Success</h1>
+    <p>We received your visit request for approval.<br /> Will send confirmation <strong>status</strong> on the
+        <strong>Team
+            Lead email
+        </strong> provided!
+    </p>
+
+    <p>Please take your time and familiarize yourself with DC Polices before your visit here</p>
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">
+        DC Policies
+    </button>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title d-flex justify-content-center text-center" id="exampleModalLabel">DATACENTER (DC)
+                    RULES </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Anyone seeking access to the DC must adhere to the rules below for harmonious coexistence and
+                    operation of the services and equipment in the facility;
+                </p>
+
+                <ol>
+                    <li>Do not enter the DC with shoes-use designated footwear-DC is a dust free zone</li>
+                    <li>Do not eat inside the DC</li>
+                    <li>Bags are not allowed inside the DC</li>
+                    <li>Always register entry and exit from the DC-Manually or/and electronically.</li>
+                    <li>Access to DC is only for authorized service providers, contractors and staff.</li>
+                    <li>Access to datacenter shouid be sought at-least one daybefore.</li>
+                    <li>Always ensure the doors to the DC are closed.</li>
+                    <li>In case of fire/alarm exit through the designated fire exits & notifi, the security guard and
+                        the DC staff.</li>
+                    <li>Always maintain the set standard (NDC is a tier III DC) when undertaking any activity in the DC.
+                        E.g all network & power cables and devices should be properly managed and labeled.</li>
+                    <li>Always follow instructions/designs provided by your supervisor.</li>
+                    <li>Always seek guidance from DC staff if you are not sure what you should do.</li>
+                    <li>A11 equipment going in and out the datacenter must be recorded on the provided counter book for
+                        traceability and accountability.</li>
+                    <li>Everyone entering to the DC must provide identification documents i.e. ID/Passport.</li>
+                    <li>Removable storage media (Memory cards, flash disk, HDD) are not allowed into the DC.</li>
+
+
+                </ol>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input type="hidden" name="org_id" value="">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.slim.min.js"
+        integrity="sha512-yrjEr6HY46i3hW7imuklZtRM7q1wyNUz8smKl2130OHTFHGbXGpHN4nYxrIeu0uJprDsLhycYY+xQ368d9OiaQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha512-Ua/7Woz9L5O0cwB/aYexmgoaD7lw3dWe9FvXejVdgqu71gRog3oJgjSWQR55fwWx+WKuk8cl7UwA1RS6QCadFA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+
+    {% endblock %}

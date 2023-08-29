@@ -106,7 +106,7 @@ h6 {
 #header.header-scrolled,
 #header.header-inner-pages {
 	/* background: rgba(40, 58, 90, 0.9); */
-	background: #fff;
+	background: #ff0013;
 }
 
 #header .logo {
@@ -938,3 +938,26 @@ section {
 		padding-top: 4px;
 	}
 }
+
+/*--------------------------------------------------------------
+# Success
+--------------------------------------------------------------*/
+
+.card {
+	background: white;
+	padding: 40px;
+	border-radius: 4px;
+	box-shadow: 0 2px 3px #C8D0D8;
+	display: inline-block;
+	margin: 80px auto;
+	min-height: 90vh;
+	width: fit-content;
+}
+
+i {
+	color: #9ABC66;
+	font-size: 100px;
+	line-height: 200px;
+	margin-left: -15px;
+}
+

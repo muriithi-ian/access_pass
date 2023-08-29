@@ -12,3 +12,6 @@ def home(request):
 
 def access_form(request):
     return render(request, 'access_forms.html')
+
+def success(request):
+    return render(request, 'success.html')
