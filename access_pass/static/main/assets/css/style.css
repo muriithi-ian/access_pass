@@ -961,3 +961,7 @@ i {
 	margin-left: -15px;
 }
 
+.card ol li{
+	text-align: left;
+}
+
