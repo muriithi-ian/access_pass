@@ -950,7 +950,7 @@ section {
 	box-shadow: 0 2px 3px #C8D0D8;
 	display: inline-block;
 	margin: 80px auto;
-	min-height: 90vh;
+	min-height: 65vh;
 	max-width: 720px;
 	width: fit-content;
 }
