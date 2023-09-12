@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'formtools',
     'crispy_forms',
+    'crispy_bootstrap4',
+    'bootstrap4',
     'access_pass',
 ]
 
@@ -54,6 +56,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'KRA_DC_Access_pass.urls'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 TEMPLATES = [
     {

@@ -4,6 +4,11 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home'),
     # path('base/', views.base, name='base'),
-    path('access_form/', views.access_form, name='access_form'),
+    path('home/', views.home, name='home'),
+    path('access_form/', views.AccessFormView.as_view(), name='form'),
+    # path('rules/', views.dc_rules, name='rules'),
+    # path('applicants/', views.applicants, name='applicants'),
+    # path('visit_request/', views.visit_request, name='visit_request'),
+    # path('sign_nda/', views.sign_nda, name='sign NDA'),
     path('success/', views.success, name='success')
 ]
