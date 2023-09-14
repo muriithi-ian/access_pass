@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='VisitRequestDetails',
+            name='VisitRequestDetail',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('reason_for_visit', models.TextField()),
@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='PersonnelDetails',
+            name='PersonnelDetail',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('full_name', models.CharField(max_length=100)),
@@ -39,7 +39,7 @@ class Migration(migrations.Migration):
                 ('organization_department', models.CharField(max_length=100)),
                 ('primary_personell', models.BooleanField()),
                 ('created_on', models.DateTimeField(auto_now_add=True)),
-                ('VisitRequestDetails', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='access_pass.VisitRequestDetails')),
+                ('VisitRequestDetail', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='access_pass.VisitRequestDetail')),
             ],
         ),
     ]
