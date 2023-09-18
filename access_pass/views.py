@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
 from .forms import DCRulesForm, VisitRequestForm, SignNDAForm
 from formtools.wizard.views import SessionWizardView
+import datetime
 
 # Create your views here.
 
@@ -25,6 +26,9 @@ TEMPLATES = {"dc_rules": "dc_rules.html",
 
 
 class AccessFormView(SessionWizardView):
+    current_date = datetime.datetime.now().strftime("%Y %m %d %D")
+    print(current_date)
+    context = {'value': current_date}
     def get_template_names(self):
         return [TEMPLATES[self.steps.current]]
 
