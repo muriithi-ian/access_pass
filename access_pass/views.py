@@ -26,7 +26,7 @@ TEMPLATES = {"dc_rules": "dc_rules.html",
 
 
 class AccessFormView(SessionWizardView):
-    current_date = datetime.datetime.now().strftime("%Y %m %d %D")
+    current_date = datetime.datetime.now().strftime("%Y %m %d")
     print(current_date)
     context = {'value': current_date}
     def get_template_names(self):
