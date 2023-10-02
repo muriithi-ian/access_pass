@@ -48,6 +48,43 @@
                 {{wizard.form.priority_level.errors}}
                 {{wizard.form.priority_level|as_crispy_field}}
             </div>
+
+            <div class="col-12">
+                <div class="alert alert-info" role="alert">
+                    <p>
+                        Do you have people accompanying you? Please fill this form below.
+                    </p>
+                </div>
+
+                <div id="attendee-cont" class="col-12">
+                    <!-- <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="fullname[]">Full Name</label>
+                            <input type="text" class="form-control" name="fullname" id="fullname"
+                                placeholder="Full Name" />
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="id_no[]">ID Number</label>
+                            <input type="text" class="form-control" name="id_no" id="id_no" placeholder="ID No"
+                                maxlength="8" />
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="phone[]">Phone Number</label>
+                            <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone No"
+                                maxlength="10" />
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="designation[]">Designation</label>
+                            <input type="text" class="form-control" name="designation" id="designation"
+                                placeholder="Designation" />
+                        </div>
+                    </div> -->
+                </div>
+                <a href="javascript:;" id="addMore" class="btn btn-info btn-user btn-sm">Add More
+                </a>
+                <small class="text-muted">Click this button to add more visitors</small><br />
+
+            </div>
             <div class="col-12">
                 {{wizard.form.reason_for_visit.errors}}
                 {{wizard.form.reason_for_visit|as_crispy_field}}
@@ -88,4 +125,33 @@
         </div>
     </form>
 </div>
+{% endblock %}
+
+{% block script %}
+<script>
+    let i = 1;
+    document.getElementById("addMore").onclick = () => {
+        const template = `
+                    <div class="form-group col-4">
+                        <label for="fullname">Full Name</label>
+                        <input type="text" class="form-control" name="fullname" id="fullname" placeholder="Full Name">
+                    </div>
+                    <div class="form-group col-4">
+                    <label for="id_no">ID Number</label>
+                    <input type="number" class="form-control" name="id_no" id="id_no" placeholder="ID No">
+                    </div>
+                    <div class="form-group col-4">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" class="form-control" name="phone" id="phone" placeholder="Phone No">
+                    </div>
+            `;
+        let container = document.getElementById("attendee-cont");
+        let div = document.createElement("div");
+        div.className = "col-12 row m-1";
+        div.innerHTML = template;
+        container.append(div);
+        i++;
+    };
+
+</script>
 {% endblock %}
