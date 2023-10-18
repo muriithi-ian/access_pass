@@ -44,11 +44,10 @@ class AccessFormView(SessionWizardView):
         time_of_visit = form_data[1]['time_of_visit']
         priority_level = form_data[1]['priority_level']
         action_required_status = form_data[1]['action_required_status']
-        # nature_of_work = form_data[1]['nature_of_work']
 
         # save visit request data to database
         visit_request_detail = VisitRequestDetail(
-            reason_for_visit=reason_for_visit, date_of_visit=date_of_visit, time_of_visit=time_of_visit, priority_level=priority_level, action_required_status=action_required_status, nature_of_work=nature_of_work)
+            reason_for_visit=reason_for_visit, date_of_visit=date_of_visit, time_of_visit=time_of_visit, priority_level=priority_level, action_required_status=action_required_status)
         visit_request_detail.save()
 
         # personell data
