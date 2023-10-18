@@ -20,7 +20,7 @@ class VisitRequestForm(forms.Form):
     date_of_visit = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'))
     time_of_visit = forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}, format='%H:%M'))
     priority_level = forms.ChoiceField(choices=PRIORITY_LEVELS, widget=forms.RadioSelect)
-    nature_of_work = forms.CharField(max_length=300, widget=forms.Textarea)
+    # nature_of_work = forms.CharField(max_length=300, widget=forms.Textarea)
     action_required_status = forms.CharField(max_length=300, label='Action Required/Status', widget=forms.Textarea)
        
 

@@ -14,7 +14,7 @@ class VisitRequestDetail(models.Model):
     date_of_visit = models.DateField(auto_now_add=True)
     time_of_visit = models.TimeField(auto_now_add=True)
     priority_level = models.CharField(max_length=100, choices=PRIORITY_LEVELS)
-    nature_of_work = models.TextField()
+    # nature_of_work = models.TextField()
     action_required_status = models.TextField()
 
 

@@ -38,7 +38,7 @@
                         KRA DC Non
                         Dis-closure
                         Agreement.</li>
-                    <li>Unauthorized devices and equipment not declared in Section A above ARE NOT allowed in the Data
+                    <li>Unauthorized devices and equipment not declared ARE NOT allowed in the Data
                         Centre.</li>
                     <li>Photography IS NOT allowed within and outside the Data Centre Facilities.
                     </li>
@@ -64,6 +64,12 @@
 
 
 
+
+
+
+{% endblock %}
+
+{% block script %}
 <!-- scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.slim.min.js"
     integrity="sha512-yrjEr6HY46i3hW7imuklZtRM7q1wyNUz8smKl2130OHTFHGbXGpHN4nYxrIeu0uJprDsLhycYY+xQ368d9OiaQ=="
@@ -73,5 +79,12 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-
+<script>
+    $(document).ready(function () {
+        setTimeout(()=>{
+            //redirect to home
+            window.location.replace("{% url 'home' %}")
+        }, 5000)
+    });
+</script>
 {% endblock %}
