@@ -1,8 +1,8 @@
 from django.db import models
+from django.contrib.auth.models import Group, Permission
+
 
 # Create your models here.
-
-
 class VisitRequestDetail(models.Model):
     PRIORITY_LEVELS = (
         ('HIGH', 'HIGH'),
@@ -28,3 +28,54 @@ class PersonnelDetail(models.Model):
     primary_personell = models.BooleanField(default=False)
     created_on = models.DateTimeField(auto_now_add=True)
     visit_request_details_id = models.ForeignKey(VisitRequestDetail, on_delete=models.CASCADE)
+
+
+class CreateGroups:
+    if Group.objects.filter(name="officer").exists() is False:
+        officer_group = Group.objects.create(name="officer")
+
+    if Group.objects.filter(name="supervisor").exists() is False:
+        supervisor_group = Group.objects.create(name='supervisor')
+
+    if Group.objects.filter(name="manager").exists() is False:
+        manager_group = Group.objects.create(name='manager')
+
+
+def ready(self):
+    my_models = ['VisitRequestDetail', 'PersonnelDetail']
+    read_permission = Permission.objects.get(
+        model_codename__in=my_models,
+        codename__startswith='can_view',
+    )
+
+    write_permission = Permission.objects.get(
+        model_codename__in=my_models,
+        codename__startswith='can_add',
+    )
+
+    edit_permission = Permission.objects.get(
+        model_codename__in=my_models,
+        codename__startswith='can_change',
+    )
+
+    if Group.objects.filter(name="officer").exists() is False:
+        officer_group = Group.objects.create(name="officer")
+        officer_group.permissions.add(read_permission)
+    else:
+        officer_group = Group.objects.get(name="officer")
+        officer_group.permissions.add(read_permission)
+
+    if Group.objects.filter(name="supervisor").exists() is False:
+        supervisor_group = Group.objects.create(name='supervisor')
+        supervisor_group.permissions.add([read_permission, write_permission, edit_permission])
+    else:
+        supervisor_group = Group.objects.get(name="supervisor")
+        supervisor_group.permissions.add([read_permission, write_permission, edit_permission])
+
+    if Group.objects.filter(name="manager").exists() is False:
+        manager_group = Group.objects.create(name='manager')
+        manager_group.permissions.add(read_permission, write_permission, edit_permission)
+    else:
+        manager_group = Group.objects.get(name="manager")
+        manager_group.permissions.add(read_permission, write_permission, edit_permission)
+

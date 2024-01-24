@@ -67,7 +67,7 @@
                     {% if user.is_authenticated %}
                     <li><a class="nav-link scrollto" href="#">Logout</a></li>
                     {% elif request.path == '/' %}
-                    <li><a class="nav-link scrollto" href="#">Admin</a></li>
+                    <li><a class="nav-link scrollto" href="{% url 'applicants' %}">Admin</a></li>
                     {% endif %}
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>

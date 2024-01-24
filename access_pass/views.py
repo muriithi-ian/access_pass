@@ -1,9 +1,11 @@
+from django.core import serializers
 from django.shortcuts import render, HttpResponse, redirect
 
 from access_pass.models import PersonnelDetail, VisitRequestDetail
 from .forms import DCRulesForm, VisitRequestForm, SignNDAForm
 from formtools.wizard.views import SessionWizardView
 import datetime
+
 
 # Create your views here.
 
@@ -30,7 +32,7 @@ TEMPLATES = {"dc_rules": "dc_rules.html",
 class AccessFormView(SessionWizardView):
     current_date = datetime.datetime.now().strftime("%Y %m %d")
     context = {'value': current_date}
-    
+
     def get_template_names(self):
         return [TEMPLATES[self.steps.current]]
 
@@ -47,7 +49,8 @@ class AccessFormView(SessionWizardView):
 
         # save visit request data to database
         visit_request_detail = VisitRequestDetail(
-            reason_for_visit=reason_for_visit, date_of_visit=date_of_visit, time_of_visit=time_of_visit, priority_level=priority_level, action_required_status=action_required_status)
+            reason_for_visit=reason_for_visit, date_of_visit=date_of_visit, time_of_visit=time_of_visit,
+            priority_level=priority_level, action_required_status=action_required_status)
         visit_request_detail.save()
 
         # personell data
@@ -60,15 +63,105 @@ class AccessFormView(SessionWizardView):
         visit_request_details_id = visit_request_detail
 
         # save personell data to database
-        personnel_detail = PersonnelDetail(full_name=full_name, id_staff_number=id_staff_number, mobile_number=mobile_number,
-                                           email_address=email_address, organization_department=organization_department, primary_personell=primary_personell, visit_request_details_id=visit_request_details_id)
+        personnel_detail = PersonnelDetail(full_name=full_name, id_staff_number=id_staff_number,
+                                           mobile_number=mobile_number,
+                                           email_address=email_address, organization_department=organization_department,
+                                           primary_personell=primary_personell,
+                                           visit_request_details_id=visit_request_details_id)
         personnel_detail.save()
         # if extra personell data is available
 
-
-        
         return render(self.request, 'success.html', {'form_data': form_data})
 
 
 def success(request):
     return render(request, 'success.html')
+
+
+def tables(request):
+    data = serializers.serialize("json", VisitRequestDetail.objects.all())
+    visitors = [
+        {
+            'name': 'John Doe',
+            'time': '10:00',
+            'date': '12/09/2021',
+            'reason': 'Meeting with the manager',
+            'priority': 'High',
+            'status': 'Pending'
+        },
+        {
+            'name': 'Jane Doe',
+            'time': '10:00',
+            'date': '12/09/2021',
+            'reason': 'Meeting with the manager',
+            'priority': 'High',
+            'status': 'Pending'
+        },
+        {
+            'name': 'John Doe',
+            'time': '10:00',
+            'date': '12/09/2021',
+            'reason': 'Meeting with the manager',
+            'priority': 'High',
+            'status': 'Pending'
+        },
+        {
+            'name': 'John Doe',
+            'time': '10:00',
+            'date': '12/09/2021',
+            'reason': 'Meeting with the manager',
+            'priority': 'High',
+            'status': 'Pending'
+        },
+        {
+            'name': 'John Doe',
+            'time': '10:00',
+            'date': '12/09/2021',
+            'reason': 'Meeting with the manager',
+            'priority': 'High',
+            'status': 'Pending'
+        },
+        {
+            'name': 'John Doe',
+            'time': '10:00',
+            'date': '12/09/2021',
+            'reason': 'Meeting with the manager',
+            'priority': 'High',
+            'status': 'Pending'
+        },
+        {
+            'name': 'John Doe',
+            'time': '10:00',
+            'date': '12/09/2021',
+            'reason': 'Meeting with the manager',
+            'priority': 'High',
+            'status': 'Pending'
+        },
+        {
+            'name': 'John Doe',
+            'time': '10:00',
+            'date': '12/09/2021',
+            'reason': 'Meeting with the manager',
+            'priority': 'High',
+            'status': 'Pending'
+        },
+        {
+            'name': 'Jane Doe',
+            'time': '10:00',
+            'date': '12/09/2021',
+            'reason': 'Meeting with the manager',
+            'priority': 'High',
+            'status': 'Approved'
+        },
+        {
+            'name': 'Jane Doe',
+            'time': '10:00',
+            'date': '12/09/2021',
+            'reason': 'Meeting with the manager',
+            'priority': 'Low',
+            'status': 'Approved'
+        }
+    ]
+
+    context = {'data': data, 'visitors': visitors}
+    return render(request, 'tables.html', context)
