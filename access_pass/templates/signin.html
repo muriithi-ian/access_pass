@@ -3,7 +3,8 @@
 
 {% block content %}
 
-<form class="mt-5 pt-5 vh-100" method="POST">
+<div class="container" style="display: grid; align-items:center; justify-content:center; margin:auto;">
+    <form class="mt-5 pt-5 min-width-60" style=" min-height:88vh" method="POST">
     {% csrf_token %}
     <div class="form-group">
         <label for="inputEmail">Email</label>
@@ -18,5 +19,6 @@
     </div>
     <button type="submit" class="btn btn-primary">Sign in</button>
 </form>
+</div>
 
 {% endblock %}
