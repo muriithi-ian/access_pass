@@ -9,7 +9,7 @@
 {% block content %}
 <!-- ======= Hero Section ======= -->
 
-<div class="container" style="margin-top: 90px; min-height: 80vh; max-width: 70%;">
+<div class="container min-vh-80" style="margin-top: 90px; min-height: 80vh; max-width: 70%;">
     <p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
     <form method="post" class="form hero">
         {% csrf_token %}
@@ -63,7 +63,7 @@
                     </div> -->
 
                     <div class="col-4">
-                        <button type="submit" class="btn btn-primary btn-lg btn-block">Agree</button>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block bg-dark">Agree</button>
                     </div>
                 </div>
             </div>

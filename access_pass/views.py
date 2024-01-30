@@ -9,6 +9,19 @@ import datetime
 
 # Create your views here.
 
+def signin(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+
+        if email == 'admin@mailcom' and password == 'admin':
+            return redirect('applicants')
+        else:
+            return redirect('signin')
+
+    else:
+        return render(request, 'signin.html')
+
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
