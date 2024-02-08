@@ -1,8 +1,11 @@
 from django.core import serializers
-from django.shortcuts import render, HttpResponse, redirect
+import json
 
+from django.shortcuts import render, HttpResponse, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 from access_pass.models import PersonnelDetail, VisitRequestDetail
-from .forms import DCRulesForm, VisitRequestForm, SignNDAForm
+from .forms import DCRulesForm, VisitRequestForm, SignNDAForm, SignInForm
 from formtools.wizard.views import SessionWizardView
 import datetime
 
@@ -14,13 +17,24 @@ def signin(request):
         email = request.POST['email']
         password = request.POST['password']
 
-        if email == 'admin@mailcom' and password == 'admin':
+        user = authenticate(request, email=email, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, 'You have successfully logged in')
             return redirect('applicants')
         else:
+            messages.error(request, 'Invalid email or password')
             return redirect('signin')
 
     else:
-        return render(request, 'signin.html')
+        form = SignInForm()
+        return render(request, 'signin.html', {form: form})
+
+
+def signout(request):
+    logout(request)
+    messages.success(request, 'You have successfully logged out')
+    return redirect('signin')
 
 
 def index(request):
@@ -28,7 +42,7 @@ def index(request):
 
 
 def base(request):
-    return render(request, 'base.html')
+    return render(request, 'base.html', {messages: messages})
 
 
 def home(request):
@@ -66,23 +80,24 @@ class AccessFormView(SessionWizardView):
             priority_level=priority_level, action_required_status=action_required_status)
         visit_request_detail.save()
 
-        # personell data
+        # personnel data
         full_name = form_data[1]['full_name']
         id_staff_number = form_data[1]['id_staff_number']
         mobile_number = form_data[1]['mobile_number']
         email_address = form_data[1]['email_address']
         organization_department = form_data[1]['organization_department']
-        primary_personell = True
+        primary_personnel = True
         visit_request_details_id = visit_request_detail
 
-        # save personell data to database
+        # save personnel data to database
         personnel_detail = PersonnelDetail(full_name=full_name, id_staff_number=id_staff_number,
                                            mobile_number=mobile_number,
                                            email_address=email_address, organization_department=organization_department,
-                                           primary_personell=primary_personell,
+                                           primary_personnel=primary_personnel,
                                            visit_request_details_id=visit_request_details_id)
         personnel_detail.save()
-        # if extra personell data is available
+        # if extra personnel data is available
+
 
         return render(self.request, 'success.html', {'form_data': form_data})
 
@@ -91,8 +106,17 @@ def success(request):
     return render(request, 'success.html')
 
 
+
 def tables(request):
-    data = serializers.serialize("json", VisitRequestDetail.objects.all())
+    if not request.user.is_authenticated:
+        return redirect('signin')
+
+    personnel = PersonnelDetail.objects.order_by('-id').select_related('visit_request_details_id').all()
+    data = serializers.serialize("json", personnel)
+    data = json.loads(data)
+
+
+    print(data[0])
     visitors = [
         {
             'name': 'John Doe',

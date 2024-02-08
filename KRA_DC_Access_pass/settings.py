@@ -30,7 +30,6 @@ ALLOWED_HOSTS = ['Saintbanditus.pythonanywhere.com']
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -74,6 +73,8 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTH_USER_MODEL = 'access_pass.User'
 
 WSGI_APPLICATION = 'KRA_DC_Access_pass.wsgi.application'
 

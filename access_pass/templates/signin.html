@@ -1,24 +1,34 @@
 {% extends "base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
+
+{% load i18n %}
 
 {% block content %}
 
 <div class="container" style="display: grid; align-items:center; justify-content:center; margin:auto;">
     <form class="mt-5 pt-5 min-width-60" style=" min-height:88vh" method="POST">
     {% csrf_token %}
-    <div class="form-group">
-        <label for="inputEmail">Email</label>
-        <input type="email" class="form-control" id="inputEmail" placeholder="Email">
-    </div>
-    <div class="form-group">
-        <label for="inputPassword">Password</label>
-        <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-    </div>
-    <div class="form-group">
-        <label class="form-check-label"><input type="checkbox"> Remember me</label>
-    </div>
+    <h2 class="text-center">Sign in</h2>
+<!--    email and password fields with name attribute-->
+
+        <div class="form-control mb-3">
+            <label> Email</label>
+            <input type="email" name="email" class="form-control" id="email" placeholder="Enter email" required>
+        </div>
+
+        <div class="form-control mb-3">
+            <label> Password</label>
+            <input type="password" name="password" class="form-control" id="password" placeholder="Enter password" required>
+        </div>
     <button type="submit" class="btn btn-primary">Sign in</button>
 </form>
 </div>
 
+{% endblock %}
+
+{% block script %}
+<script>
+    console.log("form: ", {{ form.email }});
+</script>
 {% endblock %}

@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import Group, Permission
+from django.contrib.auth.models import Group, Permission, AbstractUser
+from django.utils.translation import gettext_lazy as _
 
 
 # Create your models here.
@@ -25,57 +26,34 @@ class PersonnelDetail(models.Model):
     mobile_number = models.CharField(max_length=20)
     email_address = models.EmailField()
     organization_department = models.CharField(max_length=100, null=True)
-    primary_personell = models.BooleanField(default=False)
+    primary_personnel = models.BooleanField(default=False)
     created_on = models.DateTimeField(auto_now_add=True)
-    visit_request_details_id = models.ForeignKey(VisitRequestDetail, on_delete=models.CASCADE)
+    visit_request_details_id = models.ForeignKey(VisitRequestDetail, on_delete=models.CASCADE, related_name='personnel')
 
 
-class CreateGroups:
+class User(AbstractUser):
+    username = models.CharField(max_length=100, blank=True, null=True)
+    email = models.EmailField(_('email address'), unique=True, error_messages={'unique': _('A user with that email already exists.')})
+    password = models.CharField(max_length=100)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
+    groups = models.ManyToManyField(Group, related_name='user')
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username', 'password']
+
+    def __str__(self):
+        return "{}".format(self.email)
+
+
+class UserGroups():
     if Group.objects.filter(name="officer").exists() is False:
-        officer_group = Group.objects.create(name="officer")
+        Group.objects.create(name="officer")
 
     if Group.objects.filter(name="supervisor").exists() is False:
-        supervisor_group = Group.objects.create(name='supervisor')
+        Group.objects.create(name='supervisor')
 
     if Group.objects.filter(name="manager").exists() is False:
-        manager_group = Group.objects.create(name='manager')
+        Group.objects.create(name='manager')
 
-
-def ready(self):
-    my_models = ['VisitRequestDetail', 'PersonnelDetail']
-    read_permission = Permission.objects.get(
-        model_codename__in=my_models,
-        codename__startswith='can_view',
-    )
-
-    write_permission = Permission.objects.get(
-        model_codename__in=my_models,
-        codename__startswith='can_add',
-    )
-
-    edit_permission = Permission.objects.get(
-        model_codename__in=my_models,
-        codename__startswith='can_change',
-    )
-
-    if Group.objects.filter(name="officer").exists() is False:
-        officer_group = Group.objects.create(name="officer")
-        officer_group.permissions.add(read_permission)
-    else:
-        officer_group = Group.objects.get(name="officer")
-        officer_group.permissions.add(read_permission)
-
-    if Group.objects.filter(name="supervisor").exists() is False:
-        supervisor_group = Group.objects.create(name='supervisor')
-        supervisor_group.permissions.add([read_permission, write_permission, edit_permission])
-    else:
-        supervisor_group = Group.objects.get(name="supervisor")
-        supervisor_group.permissions.add([read_permission, write_permission, edit_permission])
-
-    if Group.objects.filter(name="manager").exists() is False:
-        manager_group = Group.objects.create(name='manager')
-        manager_group.permissions.add(read_permission, write_permission, edit_permission)
-    else:
-        manager_group = Group.objects.get(name="manager")
-        manager_group.permissions.add(read_permission, write_permission, edit_permission)
 

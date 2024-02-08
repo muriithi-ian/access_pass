@@ -22,8 +22,33 @@ class VisitRequestForm(forms.Form):
     priority_level = forms.ChoiceField(choices=PRIORITY_LEVELS, widget=forms.RadioSelect)
     # nature_of_work = forms.CharField(max_length=300, widget=forms.Textarea)
     action_required_status = forms.CharField(max_length=300, label='Action Required/Status', widget=forms.Textarea)
-       
 
 
 class SignNDAForm(forms.Form):
    pass
+
+
+class SignInForm(forms.Form):
+    email = forms.EmailField(max_length=100, widget=forms.EmailInput(), label='Email Address')
+    password = forms.CharField(max_length=100, widget=forms.PasswordInput(), label='Password')
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if not email:
+            raise forms.ValidationError('This field is required')
+        return email
+
+    def clean_password(self):
+        password = self.cleaned_data['password']
+        if not password:
+            raise forms.ValidationError('This field is required')
+        return password
+
+    def clean(self):
+        cleaned_data = super(SignInForm, self).clean()
+        email = cleaned_data.get('email')
+        password = cleaned_data.get('password')
+        if not email and not password:
+            raise forms.ValidationError('All fields are required')
+        return cleaned_data
+
