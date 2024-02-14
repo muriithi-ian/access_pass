@@ -55,7 +55,7 @@ class User(AbstractUser):
         return "{}".format(self.email)
 
 
-class UserGroups():
+def forwards():
     if Group.objects.filter(name="officer").exists() is False:
         Group.objects.create(name="officer")
 
