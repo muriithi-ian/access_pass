@@ -16,20 +16,21 @@
     </tr>
     </thead>
     <tbody>
-    {% for visitor in visitors %}
-    <tr>
-        <td>{{ forloop.counter }}</td>
-        <td>{{ visitor.name }}</td>
-        <td>{{ visitor.time }}</td>
-        <td>{{ visitor.date }}</td>
-        <td>{{ visitor.priority }}</td>
-        <td>{{ visitor.reason }}</td>
-        <td>{{ visitor.status }}</td>
-        <td>
-            <a href="{% url 'accept' %}" class="btn btn-primary">Accept</a>
-            <a href="{% url 'decline' %}" class="btn btn-danger">Decline</a>
-        </td>
-    </tr>
+    {% for visit in visits %}
+    {% if visit.personnel__primary_personnel == True %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ visit.personnel__full_name }} </td>
+            <td>{{ visit.time_of_visit }}</td>
+            <td>{{ visit.date_of_visit }}</td>
+            <td>{{ visit.priority_level }}</td>
+            <td>{{ visit.reason_for_visit }}</td>
+            <td>{{ visit.status }}</td>
+            <td>
+                <a href="{% url 'visit_request' visit.id %}" class="btn btn-primary">View</a>
+            </td>
+        </tr>
+    {% endif %}
     {% endfor %}
 </table>
 {% endblock %}

@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 d-flex justify-content-center">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <h4>Visit Request</h4>
+                    <a href="{% url 'applicants' %}" class="btn btn-primary bg-dark">Back</a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5>Visit Details</h5>
+                            <p>Requested Time of Visit: {{ visit.time_of_visit }}</p>
+                            <p>Requested Date of Visit: {{ visit.date_of_visit }}</p>
+                            <p>Priority Level: {{ visit.priority_level }}</p>
+                            <p>Reason for Visit: {{ visit.reason_for_visit }}</p>
+                            <p>Status: {{ visit.status }}</p>
+                        </div>
+                        {% for person in personnel  %}
+                        <div class="col-md-6">
+                            <h5>Visitor: {{ forloop.counter }}</h5>
+                            <p>Full Name: {{ person.full_name }}</p>
+                            <p>Phone Number: {{ person.mobile_number }}</p>
+                            <p>Email: {{ person.email_address }}</p>
+                            <p>Department: {{ person.organization_department }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="card-footer">
+<!--                    accept, decline form-->
+                    {% if visit.status == 'PENDING' %}
+                    <form action="{% url 'visit_request' visit.id %}" method="post">
+                        {% csrf_token %}
+                        <div class="form-group" >
+                            <label>Response</label>
+                            <select name="status" id="status" class="form-control">
+                                <option value="APPROVED">Approve</option>
+                                <option value="REJECTED">Reject</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Comment</label>
+                            <textarea name="comments" id="comment" class="form-control" rows="3" required></textarea>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <a href="{% url 'applicants' %}" class="btn btn-primary bg-dark">Back</a>
+                            <button type="submit" class="btn btn-primary bg-dark">Submit</button>
+                        </div>
+                    </form>
+                    {% else %}
+                    <div class="d-flex justify-content-center">
+                        <a href="{% url 'applicants' %}" class="btn btn-primary bg-dark">Back</a>
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+```

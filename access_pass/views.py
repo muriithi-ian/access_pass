@@ -5,7 +5,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from access_pass.models import PersonnelDetail, VisitRequestDetail
-from .forms import DCRulesForm, VisitRequestForm, SignNDAForm, SignInForm
+from .forms import DCRulesForm, VisitRequestForm, SignNDAForm, SignInForm, RequestForm
 from formtools.wizard.views import SessionWizardView
 import datetime
 
@@ -98,7 +98,6 @@ class AccessFormView(SessionWizardView):
         personnel_detail.save()
         # if extra personnel data is available
 
-
         return render(self.request, 'success.html', {'form_data': form_data})
 
 
@@ -106,99 +105,48 @@ def success(request):
     return render(request, 'success.html')
 
 
-
 def tables(request):
     if not request.user.is_authenticated:
         return redirect('signin')
 
-    personnel = PersonnelDetail.objects.order_by('-id').select_related('visit_request_details_id').all()
-    data = serializers.serialize("json", personnel)
-    data = json.loads(data)
+    visits = VisitRequestDetail.objects.all()
 
+    for visit in visits:
+        visit.personnel.set(PersonnelDetail.objects.filter(
+            visit_request_details_id=visit.id).only('full_name', 'id_staff_number', 'mobile_number', 'email_address',
+                                                     'organization_department', 'primary_personnel'))
 
+    data = visits.values(
+        'id', 'reason_for_visit', 'date_of_visit', 'time_of_visit', 'priority_level',
+        'action_required_status', 'status', 'comments', 'comments_by', 'personnel__full_name', 'personnel__id_staff_number',
+        'personnel__mobile_number', 'personnel__email_address',
+        'personnel__organization_department', 'personnel__primary_personnel'
+    )
+    data = list(data)
     print(data[0])
-    visitors = [
-        {
-            'name': 'John Doe',
-            'time': '10:00',
-            'date': '12/09/2021',
-            'reason': 'Meeting with the manager',
-            'priority': 'High',
-            'status': 'Pending'
-        },
-        {
-            'name': 'Jane Doe',
-            'time': '10:00',
-            'date': '12/09/2021',
-            'reason': 'Meeting with the manager',
-            'priority': 'High',
-            'status': 'Pending'
-        },
-        {
-            'name': 'John Doe',
-            'time': '10:00',
-            'date': '12/09/2021',
-            'reason': 'Meeting with the manager',
-            'priority': 'High',
-            'status': 'Pending'
-        },
-        {
-            'name': 'John Doe',
-            'time': '10:00',
-            'date': '12/09/2021',
-            'reason': 'Meeting with the manager',
-            'priority': 'High',
-            'status': 'Pending'
-        },
-        {
-            'name': 'John Doe',
-            'time': '10:00',
-            'date': '12/09/2021',
-            'reason': 'Meeting with the manager',
-            'priority': 'High',
-            'status': 'Pending'
-        },
-        {
-            'name': 'John Doe',
-            'time': '10:00',
-            'date': '12/09/2021',
-            'reason': 'Meeting with the manager',
-            'priority': 'High',
-            'status': 'Pending'
-        },
-        {
-            'name': 'John Doe',
-            'time': '10:00',
-            'date': '12/09/2021',
-            'reason': 'Meeting with the manager',
-            'priority': 'High',
-            'status': 'Pending'
-        },
-        {
-            'name': 'John Doe',
-            'time': '10:00',
-            'date': '12/09/2021',
-            'reason': 'Meeting with the manager',
-            'priority': 'High',
-            'status': 'Pending'
-        },
-        {
-            'name': 'Jane Doe',
-            'time': '10:00',
-            'date': '12/09/2021',
-            'reason': 'Meeting with the manager',
-            'priority': 'High',
-            'status': 'Approved'
-        },
-        {
-            'name': 'Jane Doe',
-            'time': '10:00',
-            'date': '12/09/2021',
-            'reason': 'Meeting with the manager',
-            'priority': 'Low',
-            'status': 'Approved'
-        }
-    ]
 
-    context = {'data': data, 'visitors': visitors}
+    context = {'visits': data}
     return render(request, 'tables.html', context)
+
+
+def visit_request(request, visit_id):
+    if not request.user.is_authenticated:
+        return redirect('signin')
+    if request.method == 'POST':
+        visit = VisitRequestDetail.objects.get(id=visit_id)
+        visit.status = request.POST['status']
+        visit.comments = request.POST['comments']
+        visit.comments_by = request.user
+        visit.modified_on = datetime.datetime.now()
+        visit.save()
+        return redirect('applicants')
+    visit = VisitRequestDetail.objects.get(id=visit_id)
+    personnel = PersonnelDetail.objects.filter(visit_request_details_id=visit_id)
+
+    personnel = personnel.values(
+        'id', 'full_name', 'id_staff_number', 'mobile_number', 'email_address',
+        'organization_department', 'primary_personnel'
+    )
+    form = RequestForm()
+    context = {'visit': visit, 'personnel': personnel, 'form': form}
+    return render(request, 'visit_request.html', context)

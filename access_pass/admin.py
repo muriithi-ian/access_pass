@@ -10,7 +10,7 @@ admin.site.register(PersonnelDetail, list_display=[
                     'id', 'full_name', 'id_staff_number', 'mobile_number', 'email_address', 'organization_department', 'primary_personnel', 'created_on', 'visit_request_details_id'])
 
 admin.site.register(VisitRequestDetail, list_display=[
-                    'id', 'reason_for_visit', 'date_of_visit', 'time_of_visit', 'priority_level',  'action_required_status'])
+                    'id', 'reason_for_visit', 'date_of_visit', 'time_of_visit', 'priority_level',  'action_required_status', 'status', 'created_on', 'comments', 'comments_by'])
 
 
 class UserAdmin(BaseUserAdmmin):

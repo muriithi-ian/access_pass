@@ -52,3 +52,7 @@ class SignInForm(forms.Form):
             raise forms.ValidationError('All fields are required')
         return cleaned_data
 
+
+class RequestForm(forms.Form):
+    status= forms.CharField(max_length=100, widget=forms.Select())
+    comments= forms.CharField(max_length=300, widget=forms.Textarea)
