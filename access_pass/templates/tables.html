@@ -16,6 +16,7 @@
     </tr>
     </thead>
     <tbody>
+    {% if len(visit) > 0 %}
     {% for visit in visits %}
     {% if visit.personnel__primary_personnel == True %}
         <tr>
@@ -32,5 +33,12 @@
         </tr>
     {% endif %}
     {% endfor %}
+    {% else %}
+    <tr>
+        <td colspan="8">No records found</td>
+    </tr>
+    {% endif %}
+    </tbody>
+
 </table>
 {% endblock %}
