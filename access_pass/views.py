@@ -65,7 +65,6 @@ class AccessFormView(SessionWizardView):
 
     def done(self, form_list, **kwargs):
         form_data = [form.cleaned_data for form in form_list]
-        # print(form_data)
 
         # save visit request data to database
         reason_for_visit = form_data[1]['reason_for_visit']
@@ -123,7 +122,6 @@ def tables(request):
         'personnel__organization_department', 'personnel__primary_personnel'
     )
     data = list(data)
-    print(data[0])
 
     context = {'visits': data}
     return render(request, 'tables.html', context)
