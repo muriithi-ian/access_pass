@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 from django.contrib.auth.models import Group, Permission, AbstractUser
 from django.utils.translation import gettext_lazy as _
@@ -17,8 +19,8 @@ class VisitRequestDetail(models.Model):
     )
     id = models.AutoField(primary_key=True)
     reason_for_visit = models.TextField()
-    date_of_visit = models.DateField(auto_now_add=True)
-    time_of_visit = models.TimeField(auto_now_add=True)
+    date_of_visit = models.DateField(default= datetime.datetime.now().strftime("%Y-%m-%d"))
+    time_of_visit = models.TimeField(default= datetime.datetime.now().strftime("%H:%M"))
     priority_level = models.CharField(max_length=100, choices=PRIORITY_LEVELS)
     # nature_of_work = models.TextField()
     action_required_status = models.TextField()

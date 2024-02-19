@@ -175,7 +175,7 @@ h6 {
 .navbar a:hover,
 .navbar .active,
 .navbar .active:focus,
-.navbar li:hover > a {
+.navbar li:hover i> a {
 	color: #111820;
 }
 
@@ -274,6 +274,7 @@ h6 {
 }
 
 .navbar-mobile a,
+.navbar-mobile i,
 .navbar-mobile a:focus {
 	padding: 10px 20px;
 	font-size: 15px;
@@ -281,6 +282,7 @@ h6 {
 }
 
 .navbar-mobile a:hover,
+.navbar-mobile i:hover,
 .navbar-mobile .active,
 .navbar-mobile li:hover > a {
 	color: #47b2e4;
@@ -956,10 +958,14 @@ section {
 }
 
 i {
-	color: #9ABC66;
+	color: #fff;
 	font-size: 100px;
 	line-height: 200px;
 	margin-left: -15px;
+}
+
+i:hover {
+    color: #111820;
 }
 
 .card ol li{

@@ -41,12 +41,11 @@ def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
 
-def base(request):
-    return render(request, 'base.html', {messages: messages})
-
-
 def home(request):
-    return render(request, 'home.html')
+    notifications = 0
+    if request.user.is_authenticated:
+        notifications = VisitRequestDetail.objects.filter(status='PENDING').count()
+    return render(request, 'home.html', {'notifications': notifications})
 
 
 # form list and templates
@@ -56,12 +55,27 @@ TEMPLATES = {"dc_rules": "dc_rules.html",
              'visit_request': 'access_forms.html', "sign_nda": "sign_nda.html"}
 
 
+#  Get data from step 1 and add to context
+def get_reason_for_visit_data(wizard):
+    cleaned_data = wizard.get_cleaned_data_for_step('visit_request') or {}
+    return cleaned_data
+
+
 class AccessFormView(SessionWizardView):
     current_date = datetime.datetime.now().strftime("%Y %m %d")
-    context = {'value': current_date}
+
+    # initial_dict = {
+    #     'visit_request': {'date_of_visit': datetime.datetime.now().strftime("%d/%m/%Y"), 'time_of_visit': datetime.datetime.now().strftime("%H:%M")},
+    # }
 
     def get_template_names(self):
         return [TEMPLATES[self.steps.current]]
+
+    # update context data
+    def get_context_data(self, form, **kwargs):
+        context = super(AccessFormView, self).get_context_data(form=form, **kwargs)
+        context.update({'visit_data': get_reason_for_visit_data(self)})
+        return context
 
     def done(self, form_list, **kwargs):
         form_data = [form.cleaned_data for form in form_list]
@@ -101,6 +115,9 @@ class AccessFormView(SessionWizardView):
 
 
 def success(request):
+    if request.user.is_authenticated:
+        notifications = VisitRequestDetail.objects.filter(status='PENDING').count()
+        return render(request, 'success.html', {'notifications': notifications})
     return render(request, 'success.html')
 
 
@@ -109,21 +126,23 @@ def tables(request):
         return redirect('signin')
 
     visits = VisitRequestDetail.objects.all()
+    notifications = VisitRequestDetail.objects.filter(status='PENDING').count()
 
     for visit in visits:
         visit.personnel.set(PersonnelDetail.objects.filter(
             visit_request_details_id=visit.id).only('full_name', 'id_staff_number', 'mobile_number', 'email_address',
-                                                     'organization_department', 'primary_personnel'))
+                                                    'organization_department', 'primary_personnel'))
 
     data = visits.values(
         'id', 'reason_for_visit', 'date_of_visit', 'time_of_visit', 'priority_level',
-        'action_required_status', 'status', 'comments', 'comments_by', 'personnel__full_name', 'personnel__id_staff_number',
+        'action_required_status', 'status', 'comments', 'comments_by', 'personnel__full_name',
+        'personnel__id_staff_number',
         'personnel__mobile_number', 'personnel__email_address',
         'personnel__organization_department', 'personnel__primary_personnel'
     )
     data = list(data)
 
-    context = {'visits': data}
+    context = {'visits': data, 'notifications': notifications}
     return render(request, 'tables.html', context)
 
 
@@ -146,5 +165,7 @@ def visit_request(request, visit_id):
         'organization_department', 'primary_personnel'
     )
     form = RequestForm()
-    context = {'visit': visit, 'personnel': personnel, 'form': form}
+
+    notifications = VisitRequestDetail.objects.filter(status='PENDING').count()
+    context = {'visit': visit, 'personnel': personnel, 'form': form, 'notifications': notifications}
     return render(request, 'visit_request.html', context)
