@@ -39,7 +39,7 @@ h6 {
 #preloader:before {
 	content: "";
 	position: fixed;
-	top: calc(50% - 30px);
+	top: calc(50% - 30px); 
 	left: calc(50% - 30px);
 	border: 6px solid #ff0013;
 	border-top-color: #fff;
@@ -972,3 +972,9 @@ i:hover {
 	text-align: left;
 }
 
+.form-button:hover :focus {
+	background-color: #ff0013 ;
+	border: #111820 3px solid;
+	color: #fff;
+	border-radius: 50px;
+}

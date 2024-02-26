@@ -12,7 +12,7 @@ class VisitRequestForm(forms.Form):
     )
 
     full_name = forms.CharField(max_length=100, widget=forms.TextInput())
-    id_staff_number = forms.CharField(max_length=100,label='ID/Staff Number' )
+    id_staff_number = forms.CharField(max_length=100,label='ID/Staff Number')
     mobile_number = forms.CharField(max_length=20)
     email_address = forms.EmailField()
     organization_department = forms.CharField(max_length=100, label='Organization/Department')

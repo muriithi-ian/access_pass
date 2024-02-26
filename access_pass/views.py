@@ -110,6 +110,7 @@ class AccessFormView(SessionWizardView):
                                            visit_request_details_id=visit_request_details_id)
         personnel_detail.save()
         # if extra personnel data is available
+        print(form_data[1])
 
         return render(self.request, 'success.html', {'form_data': form_data})
 

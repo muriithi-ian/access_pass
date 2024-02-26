@@ -66,8 +66,10 @@
 
                     {% if user.is_authenticated %}
 <!--                    notification count-->
-                    <li><a class="nav-link scrollto" href="{% url 'applicants' %}"><i class="bi bi-bell" style="font-size:20px; font-style:normal;">{% if notifications > 0 %} {{ notifications }} {% endif %}</i></a></li>
-                    <li><a class="nav-link scrollto" href="{% url 'applicants' %}">Requests</a></li>
+                    <!-- <li><a class="nav-link scrollto" href="{% url 'applicants' %}"><i class="bi bi-bell" style="font-size:20px; font-style:normal;">{% if notifications > 0 %} {{ notifications }} {% endif %}</i></a></li> -->
+                    <li><a class="nav-link scrollto" href="{% url 'applicants' %}">{% if notifications > 0 %} <i class="bi bi-bell" style="font-size:20px; font-style:normal;">{{ notifications}} </i> {% endif %} &nbsp;  Requests</a></li>
+                    <!-- user icon -->
+                    <li><a class="nav-link scrollto" href="#"><i class="bi bi-person" style="font-size:20px;"></i></a></li>
                     <li><a class="nav-link scrollto" href="{% url 'signout' %}">Logout</a></li>
                     {% else %}
                     <li><a class="nav-link" href="{% url 'signin' %}">Admin</a></li>
@@ -93,7 +95,9 @@
 <!--        </div>-->
 <!--    {% endif %}-->
 
-    {% block content %}{% endblock %}
+    <div class="container" style="margin-top: 90px; min-height: 80vh; max-width: 70%;">
+        {% block content %}{% endblock %}
+    </div>
 
     <!-- ======= Footer ======= -->
     <footer id="footer">

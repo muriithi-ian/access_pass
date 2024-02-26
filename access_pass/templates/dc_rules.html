@@ -9,14 +9,14 @@
 {% block content %}
 <!-- ======= Hero Section ======= -->
 
-<div class="container min-vh-80" style="margin-top: 90px; min-height: 80vh; max-width: 70%;">
+<div class="container min-vh-80" style="margin-top: 90px; min-height: 80vh; max-width: 70%; font-weight: bold;">
     <p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
     <form method="post" class="form hero">
         {% csrf_token %}
         {{ wizard.management_form }}
         <!-- {{ form|crispy }} -->
         <div class="container min-vh-100">
-            <div class="text-center pt-20 pe-0 pb-10 ps-0 fw-bold" style="font-size: 30px; color: #939393">
+            <div class="text-center pt-20 pe-0 pb-10 ps-0 fw-bold" style="font-size: 30px; color: #939393; font-weight: bolder;">
                 DC Rules
             </div>
             <div class="p-10 w-70">
@@ -63,7 +63,7 @@
                     </div> -->
 
                     <div class="col-4">
-                        <button type="submit" class="btn btn-primary btn-lg btn-block bg-dark">Agree</button>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block bg-dark form-button">Agree</button>
                     </div>
                 </div>
             </div>

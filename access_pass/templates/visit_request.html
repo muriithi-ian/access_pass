@@ -6,26 +6,100 @@
         <div class="col-md-12 d-flex justify-content-center">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h4>Visit Request</h4>
+                    <h4>Access Request</h4>
                     <a href="{% url 'applicants' %}" class="btn btn-primary bg-dark">Back</a>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
                             <h5>Visit Details</h5>
-                            <p>Requested Time of Visit: {{ visit.time_of_visit }}</p>
-                            <p>Requested Date of Visit: {{ visit.date_of_visit }}</p>
-                            <p>Priority Level: {{ visit.priority_level }}</p>
-                            <p>Reason for Visit: {{ visit.reason_for_visit }}</p>
-                            <p>Status: {{ visit.status }}</p>
+                            <table class="table mt-3">
+                                <tr>
+                                    <td><strong>Requested Time of Visit:</strong></td>
+                                    <td>{{ visit.time_of_visit }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Requested Date of Visit:</strong></td>
+                                    <td>{{ visit.date_of_visit }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Priority Level:</strong></td>
+                                    <td>{{ visit.priority_level }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Reason for Visit:</strong></td>
+                                    <td>{{ visit.reason_for_visit }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Status:</strong></td>
+                                    <td>{{ visit.status }}</td>
+                                </tr>
+                                {% if visit.status == 'REJECTED' %}
+                                <tr>
+                                    <td><strong>Rejected By:</strong></td>
+                                    <td>...</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Rejected At:</strong></td>
+                                    <td>...</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Comment:</strong></td>
+                                    <td>{{ visit.comments }}</td>
+                                </tr>
+                                {% endif %}
+                                {% if visit.status == 'APPROVED' %}
+                                <tr>
+                                    <td><strong>Approved By:</strong></td>
+                                    <td>...</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Approved At:</strong></td>
+                                    <td>...</td>
+                                </tr>
+                                {% endif %}
+                            </table>
+                            <!-- <p><strong>Requested Time of Visit:</strong> {{ visit.time_of_visit }}</p>
+                            <p><strong>Requested Date of Visit:</strong> {{ visit.date_of_visit }}</p>
+                            <p><strong>Priority Level:</strong> {{ visit.priority_level }}</p>
+                            <p><strong>Reason for Visit:</strong> {{ visit.reason_for_visit }}</p>
+                            <p><strong>Status:</strong> {{ visit.status }}</p>
+                            {% if visit.status == 'REJECTED' %}
+                            <p><strong>Rejected By:</strong> ...</p>
+                            <p><strong>Rejected At:</strong> ...</p>
+                            <p><strong>Comment:</strong> {{ visit.comments }}</p>
+                            {% endif %}
+                            {% if visit.status == 'APPROVED' %}
+                            <p><strong>Approved By:</strong> ...</p>
+                            <p><strong>Approved At:</strong> ...</p>
+                            {% endif %} -->
                         </div>
                         {% for person in personnel  %}
-                        <div class="col-md-6">
-                            <h5>Visitor: {{ forloop.counter }}</h5>
-                            <p>Full Name: {{ person.full_name }}</p>
-                            <p>Phone Number: {{ person.mobile_number }}</p>
-                            <p>Email: {{ person.email_address }}</p>
-                            <p>Department: {{ person.organization_department }}</p>
+                        <div class="col-md-12 mt-3">
+                            <h5><strong>Visitor:</strong> {{ forloop.counter }}</h5>
+                            <table class="table">
+                                <tr>
+                                    <td><strong>Full Name:</strong></td>
+                                    <td>{{ person.full_name }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>ID/Staff Number:</strong></td>
+                                    <td>{{ person.id_staff_number }}</td>
+                                <tr>
+                                    <td><strong>Phone Number:</strong></td>
+                                    <td>{{ person.mobile_number }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Email:</strong></td>
+                                    <td>{{ person.email_address }}</td>
+                                </tr>
+                                {% if person.organization_department %}
+                                <tr>
+                                    <td><strong>Department/Organization:</strong></td>
+                                    <td>{{ person.organization_department }}</td>
+                                </tr>
+                                {% endif %}
+                            </table>
                         </div>
                         {% endfor %}
                     </div>
