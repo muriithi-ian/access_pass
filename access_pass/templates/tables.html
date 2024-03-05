@@ -4,21 +4,32 @@
 
 <table class="table" style="margin-top:100px">
     <thead>
-    <tr>
-        <th>#</th>
-        <th>Visitor</th>
-        <th>Time</th>
-        <th>Date</th>
-        <th>priority</th>
-        <th>reason</th>
-        <th>status</th>
-        <th>actions</th>
-    </tr>
+        <tr>
+            <th></th>
+            <th></th>
+            <th><a class="btn btn-sm btn-dark" href="/applicants/all" >All</a></th>
+            <th><a class="btn btn-sm btn-dark" href="/applicants/pending" >Pending</a></th>
+            <th><a class="btn btn-sm btn-dark" href="/applicants/approved" >Approved</a></th>
+            <th><a class="btn btn-sm btn-dark" href="/applicants/rejected" >Rejected</a></th>
+            <th></th>
+            <th></th>
+
+        </tr>
+        <tr>
+            <th>#</th>
+            <th>Visitor</th>
+            <th>Time</th>
+            <th>Date</th>
+            <th>priority</th>
+            <th>reason</th>
+            <th>status</th>
+            <th>actions</th>
+        </tr>
     </thead>
     <tbody>
-    {% if  visits %}
-    {% for visit in visits %}
-    {% if visit.personnel__primary_personnel == True %}
+        {% if visits %}
+        {% for visit in visits %}
+        {% if visit.personnel__primary_personnel == True %}
         <tr>
             <td>{{ forloop.counter }}</td>
             <td>{{ visit.personnel__full_name }} </td>
@@ -28,19 +39,19 @@
             <td>{{ visit.reason_for_visit }}</td>
             <td>{{ visit.status }}</td>
             <td>
-                <a href="{% url 'visit_request' visit.id %}" class="btn btn-primary">View</a>
+                <a href="{% url 'visit_request' visit.id %}" class="btn btn-dark">View</a>
             </td>
         </tr>
-    {% endif %}
-    {% endfor %}
-    {% else %}
-    <tr>
+        {% endif %}
+        {% endfor %}
+        {% else %}
+        <tr>
 
-        <td colspan="12" class="text-center">No records found</td>
+            <td colspan="12" class="text-center">No records found</td>
 
 
-    </tr>
-    {% endif %}
+        </tr>
+        {% endif %}
     </tbody>
 
 </table>

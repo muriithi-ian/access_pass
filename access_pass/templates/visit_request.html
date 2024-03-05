@@ -37,11 +37,11 @@
                                 {% if visit.status == 'REJECTED' %}
                                 <tr>
                                     <td><strong>Rejected By:</strong></td>
-                                    <td>...</td>
+                                    <td>{{ visit.comments_by }}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Rejected At:</strong></td>
-                                    <td>...</td>
+                                    <td>{{ visit.modified_on}}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Comment:</strong></td>
@@ -51,11 +51,11 @@
                                 {% if visit.status == 'APPROVED' %}
                                 <tr>
                                     <td><strong>Approved By:</strong></td>
-                                    <td>...</td>
+                                    <td>{{ visit.comments_by }}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Approved At:</strong></td>
-                                    <td>...</td>
+                                    <td>{{ visit.modified_on}}</td>
                                 </tr>
                                 {% endif %}
                             </table>

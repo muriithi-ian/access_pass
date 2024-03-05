@@ -122,11 +122,19 @@ def success(request):
     return render(request, 'success.html')
 
 
-def tables(request):
+def tables(request, filter='all'):
     if not request.user.is_authenticated:
         return redirect('signin')
 
     visits = VisitRequestDetail.objects.all()
+
+    if filter == 'pending':
+        visits = VisitRequestDetail.objects.filter(status='PENDING')
+    elif filter == 'approved':
+        visits = VisitRequestDetail.objects.filter(status='APPROVED')
+    elif filter == 'rejected':
+        visits = VisitRequestDetail.objects.filter(status='REJECTED')
+
     notifications = VisitRequestDetail.objects.filter(status='PENDING').count()
 
     for visit in visits:
@@ -158,8 +166,12 @@ def visit_request(request, visit_id):
         visit.modified_on = datetime.datetime.now()
         visit.save()
         return redirect('applicants')
+
     visit = VisitRequestDetail.objects.get(id=visit_id)
     personnel = PersonnelDetail.objects.filter(visit_request_details_id=visit_id)
+
+    print(request.user.username)
+    
 
     personnel = personnel.values(
         'id', 'full_name', 'id_staff_number', 'mobile_number', 'email_address',

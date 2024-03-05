@@ -28,7 +28,7 @@ class UserAdmin(BaseUserAdmmin):
         }),
     )
 
-    list_display = ['email', 'first_name', 'last_name', 'is_active', 'is_staff', 'is_superuser']
+    list_display = ['email', 'is_officer', 'is_supervisor', 'is_manager', 'first_name', 'last_name', 'is_active', 'is_staff', 'is_superuser', 'last_login', 'date_joined', 'username']
     search_fields = ['email', 'first_name', 'last_name']
     ordering = ['email']
 

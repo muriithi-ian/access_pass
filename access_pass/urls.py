@@ -9,6 +9,7 @@ urlpatterns = [
     path('access_form/', views.AccessFormView.as_view(views.FORMS), name='form'),
     path('success/', views.success, name='success'),
     path('applicants/', views.tables, name='applicants'),
+    path('applicants/<filter>', views.tables, name='applicants'),
     path('visit_request/<int:visit_id>', views.visit_request, name='visit_request'),
     path('accept/', views.tables, name='accept'),
     path('decline/', views.tables, name='decline'),
