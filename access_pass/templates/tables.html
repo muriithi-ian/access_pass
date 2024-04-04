@@ -21,6 +21,7 @@
             <th>Time</th>
             <th>Date</th>
             <th>priority</th>
+            <th>department/organization</th>
             <th>reason</th>
             <th>status</th>
             <th>actions</th>
@@ -36,6 +37,7 @@
             <td>{{ visit.time_of_visit }}</td>
             <td>{{ visit.date_of_visit }}</td>
             <td>{{ visit.priority_level }}</td>
+            <td>{{ visit.personnel__organization_department}}</td>
             <td>{{ visit.reason_for_visit }}</td>
             <td>{{ visit.status }}</td>
             <td>
