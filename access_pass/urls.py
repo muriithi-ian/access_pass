@@ -13,4 +13,5 @@ urlpatterns = [
     path('visit_request/<int:visit_id>', views.visit_request, name='visit_request'),
     path('accept/', views.tables, name='accept'),
     path('decline/', views.tables, name='decline'),
+    path('print/<int:visit_id>', views.print_nda, name='print'),
 ]

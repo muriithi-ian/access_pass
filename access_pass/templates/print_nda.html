@@ -1,0 +1,286 @@
+<!-- {% extends 'base.html' %} -->
+
+<style>
+	/* Define a header for printed pages */
+	@media print {
+		#header {
+
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 50px;
+			/* Adjust height as needed */
+			padding: 10px;
+			text-align: center;
+		}
+
+		#footer {
+			display: none;
+		}
+
+	}
+</style>
+<!-- {% block content %} -->
+<!-- ======= Hero Section ======= -->
+<div class="container min-vh-100">
+	<div class="p-10 w-70">
+		<h5>CONFIDENTIALITY</h5>
+		<p>
+			The content of this document is CONFIDENTIAL and property of KRA. It
+			contains confidential information that captures KRA's knowhow and
+			expert knowledge. Any reproduction and or circulation, either
+			electronic or by any other means is forbidden without prior approval
+			by KRA. Circulation is strictly limited to the stated recipients.
+		</p>
+
+		<h5>INFORMATION CONFIDENTIALITY AGREEMENT</h5>
+		<p>
+			This Non-Disclosure Agreement (NDA) is made this <strong>{{ visit_data.date_of_visit }}</strong>
+		</p>
+
+		<p>BETWEEN</p>
+		<p>
+			KENYA REVENUE AUTHORITY, a State Corporation in the Republic of Kenya
+			duly incorporated under the Kenya Revenue Authority Act (Cap. 469 of
+			the Laws of Kenya) and whose registered office is situated at Times
+			Tower, Haile Selassie Avenue, of P. O. Box 48240 - 00100 Nairobi (here
+			in after referred to as “KRA” which expression shall where the context
+			so admits include its successors and assigns) of the one part
+		</p>
+		<p>AND</p>
+		<p> <strong style="text-decoration:underline"> {{ visit_data.organization_department }}</strong> of </p>
+		<p>
+			(here in after referred as the “Third Party”) on the other hand. For
+			the provision
+			of:
+		<ul>
+			<li><strong style="text-decoration:underline">{{ visit_data.reason_for_visit }}</strong></li>
+		</ul>
+		</p>
+
+		<p>
+			This agreement affects Third Party as defined herein.
+		</p>
+
+		<ol>
+			<li>
+				<h5>Confidentiality of KRA Information Assets</h5>
+				<ol>
+					<li>
+						The Third Party must undertake to keep all information contained or embodied in
+						the system and documentation confidential whether accessed on site or through
+						remote means such as a dial-up connection, Virtual Private Network, or any other
+						means.
+					</li>
+					<li>All information collected by means of interviews or questionnaires shall also be
+						treated as confidential unless otherwise specified by the Authority.
+					</li>
+					<li>The Third Party shall not, without the prior written consent of KRA, divulge any
+						information to any person except the Third Party’s own employees, and then only
+						to those employees who need to know the same. Such persons shall also be bound
+						by this policy.
+					</li>
+					<li>The Third Party will undertake to ensure that the persons and bodies mentioned in
+						the paragraph above keep any information confidential. The Third Party shall
+						indemnify KRA against any loss or damage, which KRA may sustain as a result of
+						the Third Party failing to comply with this undertaking.
+					</li>
+					<li>The Third Party shall promptly notify the Authority if it becomes aware of any
+						breach of confidence by any person to whom the Third Party divulges all or any
+						part of the Information and shall give KRA all reasonable assistance in connection
+						with any proceedings that it may institute against such person for a breach of
+						confidence.
+					</li>
+					<li>
+						The foregoing obligations as to confidentiality shall remain in full force and effect
+						notwithstanding any termination of this Agreement.
+					</li>
+				</ol>
+			</li>
+			<li>
+				<h5>Security and Control</h5>
+				<ol>
+					<li>
+						The Third Party shall agree to the following through the duration of the
+						agreement:
+						<ol>
+							<li>
+								Effect and maintain reasonable security measures to safeguard any information
+								from
+								access or use by any unauthorized person.
+							</li>
+							<li>
+								Take responsibility to ensure any equipment connected to the network or software
+								installed has been cleaned of all virus infection and will be liable for any
+								damage caused
+								to KRA's systems as a result of failure to comply with this clause.
+							</li>
+							<li>The Third Party shall undertake to employ a high level of professionalism to
+								maintain the
+								status quo of the systems, information, and data and will not in any way affect
+								the system
+								integrity and/or availability.
+							</li>
+							<li>
+								The tools used within the Authority's infrastructure must have been tested,
+								approved, and
+								internationally acceptable with accreditation.
+							</li>
+							<li>
+								An internal Change Control plan shall be used detailing the changes by KRA.
+								However, it
+								is the Third Party's responsibility to ensure a suitable rollback plan is in
+								place should any
+								installation failure occur.
+							</li>
+							<li>
+								Maintain a full and accurate record of its copying and disclosure of any
+								information and
+								shall produce such a record to the Authority on request from time to time.
+							</li>
+							<li>
+								Shall, after the usage of materials, reports, and any type of copies made if
+								any,
+								return the
+								same to the Authority for disposal.
+							</li>
+							<li>
+								Any Third Party network, database, and application accounts shall be set to
+								expire after no
+								more than 3 months unless a specific business case is presented granting an
+								extension
+								period.
+							</li>
+						</ol>
+					</li>
+					<li>
+						Any Third Party accessing the Authority's systems without permission will be
+						deemed to have breached the terms of this agreement.
+					</li>
+				</ol>
+			</li>
+
+			<li>
+				<h5>
+					Alterations
+				</h5>
+				<p>Save to the extent permitted by KRA, the Third Party hereby undertakes not to, nor
+					attempt to, alter or modify any part of the authorities systems, data or
+					documentation in any way nor decompile, disassemble or reverse engineer the
+					systems.
+				</p>
+			</li>
+			<li>
+				<h5>Definitions</h5>
+				<ol>
+					<li>
+						<strong>Third Party:- </strong> includes contractors, suppliers and any other persons
+						directly
+						involved in a transaction or agreement with Kenya Revenue Authority besides KRA
+						employees;
+					</li>
+					<li>
+						<strong>Information:- </strong> include information printed or written on paper,
+						transmitted by
+						post or shown in films, or spoken in conversation, as well as information stored
+						electronically on servers, websites, intranets, PCs, laptops, mobile phones and
+						PDAs as well as on CD ROMs, floppy disks, USB sticks, back-up tapes and any other
+						digital or magnetic media, and information transmitted electronically by any
+						means.
+					</li>
+				</ol>
+			</li>
+			<li>
+				<h5>Governing Law</h5>
+				<p>
+					This Agreement and the relationship of the parties in connection with the subject
+					matter of this Agreement shall be governed and determined in accordance with the
+					Laws of Kenya.
+				</p>
+			</li>
+			<li>
+				<h5>
+					Communication
+				</h5>
+				<ol>
+					<li>
+						<p>
+							Any written notice in connection with this agreement shall be addressed: In
+							the case of KRA to:
+						</p>
+						<p>
+							Attn: <strong style="text-decoration:underline">{{ visit_data.full_name }} </strong>
+						</p>
+						<p>
+							Email: <strong style="text-decoration:underline">{{ visit_data.email_address }}</strong>
+						</p>
+						<p>
+							Telephone: <strong style="text-decoration:underline">{{ visit_data.mobile_number }}</strong>
+						</p>
+					</li>
+				</ol>
+			</li>
+			<li>
+				<h5>
+					Good Faith
+				</h5>
+				<ol>
+					<li>
+						Each party shall observe good faith towards the other and hereby warrants that in
+						their dealing with each other they shall not perform any act or omission, which may
+						prejudice or detract from the rights or interest of the other party.
+					</li>
+				</ol>
+			</li>
+			<li>
+				<h5>
+					Enforcement
+				</h5>
+				<ol>
+					<li>
+						This agreement shall be binding upon, inure to the benefit of, and be enforceable by
+						(a) KRA, its successors and assignees; and (b) the Third Party, its successors and
+						assignees.
+					</li>
+					<li>
+						Failure to comply with this Information Confidentiality Agreement may constitute
+						grounds for termination of the affiliation. Further, penalties associated with the
+						breach of the laws of Kenya shall apply.
+					</li>
+				</ol>
+			</li>
+			<li>
+				<h5>
+					Dispute Settlement
+				</h5>
+				<ol>
+					<li>
+						Any dispute, controversy or claim between the Parties arising out of this agreement
+						or the breach, termination or invalidity thereof, unless settled amicably within thirty
+						(30) days after receipt by one party of the other Party's request for such
+						amicable settlement, shall be referred for arbitration.
+					</li>
+					<li>
+						Such Arbitration shall be conducted in Nairobi in accordance with the Nairobi
+						Centre for International Arbitration (Arbitration) Rules, 2015 and by the Nairobi
+						Centre for International Arbitration established under the Nairobi Centre for
+						International Arbitration Act, No. 26 of 2013.
+					</li>
+					<li>
+						To the extent permissible by law, the determination of the Arbitrator shall be final,
+						conclusive and binding upon the Parties hereto.
+					</li>
+				</ol>
+			</li>
+		</ol>
+
+		<p>
+			<strong>IN WITNESS WHERE OF,</strong> the parties have executed this agreement effective as of
+			the date first written above.
+		</p>
+
+	</div>
+</div>
+<!-- End Hero -->
+<!-- {% endblock %} -->

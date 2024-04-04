@@ -110,8 +110,23 @@ class AccessFormView(SessionWizardView):
                                            visit_request_details_id=visit_request_details_id)
         personnel_detail.save()
         # if extra personnel data is available
-        print(form_data[1])
+        if 'extra_personnel' in form_data[1]:
+            for personnel in form_data[1]['extra_personnel']:
+                full_name = personnel['full_name']
+                id_staff_number = personnel['id_staff_number']
+                mobile_number = personnel['mobile_number']
+                email_address = personnel['email_address']
+                organization_department = personnel['organization_department']
+                primary_personnel = False
+                visit_request_details_id = visit_request_detail
 
+                # save personnel data to database
+                personnel_detail = PersonnelDetail(full_name=full_name, id_staff_number=id_staff_number,
+                                                   mobile_number=mobile_number,
+                                                   email_address=email_address, organization_department=organization_department,
+                                                   primary_personnel=primary_personnel,
+                                                   visit_request_details_id=visit_request_details_id)
+                personnel_detail.save()
         return render(self.request, 'success.html', {'form_data': form_data})
 
 
@@ -168,10 +183,7 @@ def visit_request(request, visit_id):
         return redirect('applicants')
 
     visit = VisitRequestDetail.objects.get(id=visit_id)
-    personnel = PersonnelDetail.objects.filter(visit_request_details_id=visit_id)
-
-    print(request.user.username)
-    
+    personnel = PersonnelDetail.objects.filter(visit_request_details_id=visit_id)    
 
     personnel = personnel.values(
         'id', 'full_name', 'id_staff_number', 'mobile_number', 'email_address',
@@ -182,3 +194,25 @@ def visit_request(request, visit_id):
     notifications = VisitRequestDetail.objects.filter(status='PENDING').count()
     context = {'visit': visit, 'personnel': personnel, 'form': form, 'notifications': notifications}
     return render(request, 'visit_request.html', context)
+
+
+def print_nda(request, visit_id):
+    if not request.user.is_authenticated:
+        return redirect('signin')
+
+    visit = VisitRequestDetail.objects.get(id=visit_id)
+    personnel = PersonnelDetail.objects.filter(visit_request_details_id=visit_id, primary_personnel=True).first()
+
+    visit_data = {
+        'date_of_visit': visit.date_of_visit,
+        'organization_department': personnel.organization_department,
+        'reason_for_visit': visit.reason_for_visit,
+        'full_name': personnel.full_name,
+        'email_address': personnel.email_address,
+        'mobile_number': personnel.mobile_number,
+        'reason_for_visit': visit.reason_for_visit,
+    }
+    context = {'visit_data': visit_data}
+
+
+    return render(request, 'print_nda.html' , context)

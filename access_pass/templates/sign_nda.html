@@ -3,13 +3,12 @@
 {% load crispy_forms_tags %}
 {% load tz %} 
 {% block head %}
-{{ wizard.form.media }}
+	{{ wizard.form.media }}
 {% endblock %}
 {% block content %}
 <!-- ======= Hero Section ======= -->
 
 <div class="container" style="max-width: 90%">
-	<p>{{ reason_for_visit_data }}</p>
 	<p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
 	<form method="post" class="form hero">
 		{% csrf_token %} {{ wizard.management_form }}
@@ -30,7 +29,7 @@
 
 				<h5>INFORMATION CONFIDENTIALITY AGREEMENT</h5>
 				<p>
-					This Non-Disclosure Agreement (NDA) is made this {% now "jS F Y" %}
+					This Non-Disclosure Agreement (NDA) is made this <strong>{{ visit_data.date_of_visit }}</strong>
 				</p>
 
 				<p>BETWEEN</p>
