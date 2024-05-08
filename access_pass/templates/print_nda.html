@@ -1,4 +1,4 @@
-<!-- {% extends 'base.html' %} -->
+{% extends 'base.html' %}
 
 <style>
 	/* Define a header for printed pages */
@@ -15,14 +15,18 @@
 			text-align: center;
 		}
 
+		#header nav {
+			display: none;
+			background-color: red;
+		}
+
 		#footer {
 			display: none;
 		}
 
 	}
 </style>
-<!-- {% block content %} -->
-<!-- ======= Hero Section ======= -->
+{% block content %}
 <div class="container min-vh-100">
 	<div class="p-10 w-70">
 		<h5>CONFIDENTIALITY</h5>
@@ -282,5 +286,10 @@
 
 	</div>
 </div>
-<!-- End Hero -->
-<!-- {% endblock %} -->
+{% endblock %}
+
+{% block script %}
+<script>
+	window.print();
+</script>
+{% endblock %}
