@@ -107,30 +107,32 @@
                 </div>
                 <div class="card-footer">
 <!--                    accept, decline form-->
-                    {% if visit.status == 'PENDING' %}
-                    <form action="{% url 'visit_request' visit.id %}" method="post">
-                        {% csrf_token %}
-                        <div class="form-group" >
-                            <label>Response</label>
-                            <select name="status" id="status" class="form-control">
-                                <option value="APPROVED">Approve</option>
-                                <option value="REJECTED">Reject</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Comment</label>
-                            <textarea name="comments" id="comment" class="form-control" rows="3" required></textarea>
-                        </div>
-                        <div class="d-flex justify-content-between mt-2">
+                    {% if request.user.is_manager or request.user.is_supervisor or user.is_superuser %}
+                        {% if visit.status == 'PENDING'  %}
+                        <form action="{% url 'visit_request' visit.id %}" method="post">
+                            {% csrf_token %}
+                            <div class="form-group" >
+                                <label>Response</label>
+                                <select name="status" id="status" class="form-control">
+                                    <option value="APPROVED">Approve</option>
+                                    <option value="REJECTED">Reject</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Comment</label>
+                                <textarea name="comments" id="comment" class="form-control" rows="3" required></textarea>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2">
+                                <a href="{% url 'applicants' %}" class="btn btn-primary bg-dark">Back</a>
+                                <button type="submit" class="btn btn-primary bg-dark">Submit</button>
+                            </div>
+                        </form>
+                        {% else %}
+                        <div class="d-flex justify-content-center">
                             <a href="{% url 'applicants' %}" class="btn btn-primary bg-dark">Back</a>
-                            <button type="submit" class="btn btn-primary bg-dark">Submit</button>
                         </div>
-                    </form>
-                    {% else %}
-                    <div class="d-flex justify-content-center">
-                        <a href="{% url 'applicants' %}" class="btn btn-primary bg-dark">Back</a>
-                    </div>
 
+                        {% endif %}
                     {% endif %}
 
                 </div>
