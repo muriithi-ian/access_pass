@@ -22,7 +22,6 @@ class VisitRequestDetail(models.Model):
     date_of_visit = models.DateField(default= datetime.datetime.now().strftime("%Y-%m-%d"))
     time_of_visit = models.TimeField(default= datetime.datetime.now().strftime("%H:%M"))
     priority_level = models.CharField(max_length=100, choices=PRIORITY_LEVELS)
-    # nature_of_work = models.TextField()
     action_required_status = models.TextField()
     status = models.CharField(max_length=100, choices=VISIT_STATUS, default='PENDING')
     created_on = models.DateTimeField(auto_now_add=True)
@@ -58,20 +57,4 @@ class User(AbstractUser):
 
     def __str__(self):
         return "{}".format(self.email)
-
-
-def forwards():
-    if Group.objects.filter(name="officer").exists() is False:
-        Group.objects.create(name="officer")
-
-    if Group.objects.filter(name="supervisor").exists() is False:
-        Group.objects.create(name='supervisor')
-
-    if Group.objects.filter(name="manager").exists() is False:
-        Group.objects.create(name='manager')
-
-# users= [
-#     {'reason_for_visit': 'Fix servers', 'date_of_visit': datetime.date(2024, 2, 6), 'time_of_visit': datetime.time(13, 31, 29, 486331), 'priority_level': 'MEDIUM', 'action_required_status': 'Troubleshooting', 'status': 'PENDING', 'comments': None, 'comments_by': None, 'personnel__full_name': 'Ian Muriithi', 'personnel__id_staff_number': '1234567890', 'personnel__mobile_number': '+254723085151', 'personnel__email_address': 'imuriithiian@gmail.com', 'personnel__organization_department': 'Freelance', 'personnel__primary_personnel': True},
-#     {'reason_for_visit': 'Fix servers', 'date_of_visit': datetime.date(2024, 2, 6), 'time_of_visit': datetime.time(13, 31, 29, 486331), 'priority_level': 'MEDIUM', 'action_required_status': 'Troubleshooting', 'status': 'PENDING', 'comments': None, 'comments_by': None, 'personnel__full_name': 'Jack Njihia', 'personnel__id_staff_number': '1234567890', 'personnel__mobile_number': '+254723085151', 'personnel__email_address': 'jack@gmail.com', 'personnel__organization_department': 'Freelance', 'personnel__primary_personnel': False},
-#     {'reason_for_visit': 'Update software', 'date_of_visit': datetime.date(2024, 2, 6), 'time_of_visit': datetime.time(13, 32, 2, 678408), 'priority_level': 'HIGH', 'action_required_status': 'Install latest softtware', 'status': 'PENDING', 'comments': None, 'comments_by': None, 'personnel__full_name': 'Mwas Mwas', 'personnel__id_staff_number': '1234567890', 'personnel__mobile_number': '+254723085151', 'personnel__email_address': 'imuriithiian@gmail.com', 'personnel__organization_department': 'Freelance', 'personnel__primary_personnel': True}]
 
