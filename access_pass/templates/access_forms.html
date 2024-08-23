@@ -80,7 +80,7 @@
                         </div>
                     </div> -->
                 </div>
-                <a href="javascript:;" id="addMore" class="btn btn-success btn-user btn-sm bg-dark">Add More
+                <a href="javascript:;" id="addMore" class="btn-all">Add More
                 </a>
                 <small class="text-muted">Click this button to add more visitors</small><br />
 
@@ -90,11 +90,11 @@
                 {{wizard.form.reason_for_visit|as_crispy_field}}
             </div>
            
-            <div class="col-12">
+           <!-- <div class="col-12">
                 {{wizard.form.action_required_status.errors}}
                 {{wizard.form.action_required_status|as_crispy_field}}
             </div>
-
+        -->
         </div>
 
         <!-- <table>
@@ -114,10 +114,10 @@
 
                 <!-- <button class="btn btn-info col-3" name="wizard_goto_step" type="submit"
                     value="{{ wizard.steps.first }}">first step</button> -->
-                <button class="btn btn-success col-3 bg-dark" name="wizard_goto_step" type="submit"
+                <button class="btn-all" name="wizard_goto_step" type="submit"
                     value="{{ wizard.steps.prev }}">Previous</button>
                 {% endif %}
-                <button class="btn btn-success col-3 bg-dark" type="submit">Next</button>
+                <button class="btn-all" type="submit">Next</button>
             </div>
         </div>
     </form>

@@ -21,7 +21,7 @@ class VisitRequestForm(forms.Form):
     time_of_visit = forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}, format='%H:%M'))
     priority_level = forms.ChoiceField(choices=PRIORITY_LEVELS, widget=forms.RadioSelect)
     # nature_of_work = forms.CharField(max_length=300, widget=forms.Textarea)
-    action_required_status = forms.CharField(max_length=300, label='Action Required/Status', widget=forms.Textarea)
+    #action_required_status = forms.CharField(max_length=300, label='Action Required/Status', widget=forms.Textarea)
 
 
 class SignNDAForm(forms.Form):
