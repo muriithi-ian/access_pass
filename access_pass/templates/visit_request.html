@@ -7,8 +7,8 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h4>Access Request</h4>
-                    <a href="{% url 'print' visit.id %}" target="_blank" class="btn btn-primary btn-dark">NDA</a>
-                    <a href="{% url 'applicants' %}" class="btn btn-primary bg-dark">Back</a>
+                    <a href="{% url 'print' visit.id %}" target="_blank" class="btn-all">NDA</a>
+                    <a href="{% url 'applicants' %}" class="btn-all">Back</a>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -123,13 +123,13 @@
                                 <textarea name="comments" id="comment" class="form-control" rows="3" required></textarea>
                             </div>
                             <div class="d-flex justify-content-between mt-2">
-                                <a href="{% url 'applicants' %}" class="btn btn-primary bg-dark">Back</a>
-                                <button type="submit" class="btn btn-primary bg-dark">Submit</button>
+                                <a href="{% url 'applicants' %}" class="btn-all">Back</a>
+                                <button type="submit" class="btn-all">Submit</button>
                             </div>
                         </form>
                         {% else %}
                         <div class="d-flex justify-content-center">
-                            <a href="{% url 'applicants' %}" class="btn btn-primary bg-dark">Back</a>
+                            <a href="{% url 'applicants' %}" class="btn-all">Back</a>
                         </div>
 
                         {% endif %}

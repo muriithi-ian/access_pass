@@ -9,7 +9,7 @@
 {% block content %}
 <!-- ======= Hero Section ======= -->
 
-<div class="container min-vh-80" style="margin-top: 90px; min-height: 80vh; max-width: 70%; font-weight: bold;">
+<div class="container min-vh-80" style="margin-top: 90px; min-height: 80vh; max-width: fit-content; font-weight: bold;">
     <p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
     <form method="post" class="form hero">
         {% csrf_token %}
@@ -21,38 +21,27 @@
             </div>
             <div class="p-10 w-70">
                 <p>Anyone seeking access to the DC must adhere to the rules below for harmonious
-                    coexistence and
+                    co-existence and
                     operation of the services and equipment in the facility;
                 </p>
 
                 <ol>
-                    <li>Do not enter the DC with shoes-use designated footwear-DC is a dust free
-                        zone</li>
-                    <li>Do not eat inside the DC</li>
-                    <li>Bags are not allowed inside the DC</li>
-                    <li>Always register entry and exit from the DC-Manually or/and electronically.
-                    </li>
-                    <li>Access to DC is only for authorized service providers, contractors and
-                        staff.</li>
-                    <li>Access to datacenter shouid be sought at-least one daybefore.</li>
-                    <li>Always ensure the doors to the DC are closed.</li>
-                    <li>In case of fire/alarm exit through the designated fire exits & notifi, the
-                        security guard and
-                        the DC staff.</li>
-                    <li>Always maintain the set standard (NDC is a tier III DC) when undertaking any
-                        activity in the DC.
-                        E.g all network & power cables and devices should be properly managed and
-                        labeled.</li>
-                    <li>Always follow instructions/designs provided by your supervisor.</li>
-                    <li>Always seek guidance from DC staff if you are not sure what you should do.
-                    </li>
-                    <li>A11 equipment going in and out the datacenter must be recorded on the
-                        provided counter book for
-                        traceability and accountability.</li>
-                    <li>Everyone entering to the DC must provide identification documents i.e.
-                        ID/Passport.</li>
-                    <li>Removable storage media (Memory cards, flash disk, HDD) are not allowed into
-                        the DC.</li>
+                    <li>Access to the Data Centre should be sought at-least ONE DAY before. </li>
+                    <li>Always REGISTER entry and exit from the DC manually or/and electronically.</li>
+                    <li>Everyone entering the DC must provide IDENTIFICATION DOCUMENTS, i.e. ID/ Passport.</li>
+                    <li>Access to the DC is only for AUTHORIZED service providers, contractors and staff.</li>
+                    <li>Always follow instructions/designs provided by the officer-in-charge.</li>
+                    <li>All equipment going in and out of the Data Centre must be RECORDED on the provided counter 
+                        book for traceability and accountability.</li>
+                    <li>Removable storage media (Memory cards, flash disk, HDD) are NOT ALLOWED into the DC.</li>
+                    <li>Bags are NOT allowed inside the DC</li>
+                    <li>DO NOT enter the DC with shoes. Use designated footwear. The DC is a dust free zone.</li>
+                    <li>Always ensure the doors to the DC are CLOSED (Both entry and exit).</li>
+                    <li>Always maintain the SET STANDARD (NDC IS A TIER III DC) when undertaking any activity in the DC. 
+                        E.g all network & power cables and devices should be properly MANAGED AND LABELED.</li>
+                    <li>In case of a fire/an alarm, exit through the designated fire exits & notify the security guard and the DC staff</li>
+                    <li>DO NOT EAT inside the DC.</li>
+                    <li>Always seek guidance from the officer-in-charge if you are not sure what you should do.</li>
                 </ol>
             </div>
             <div class="container-fluid">

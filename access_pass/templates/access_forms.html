@@ -11,6 +11,9 @@
 {% block content %}
 <div class="container" style="max-width: 80%;">
     <p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
+    <div class="text-center pt-20 pe-0 pb-10 ps-0 fw-bold" style="font-size: 45px; color: #000; font-weight: bolder;">
+        ACCESS PASS FORM
+    </div>
     <form method="post">{% csrf_token %}
         {{wizard.management_form}}
         {{ wizard.form.non_field_errors }}
@@ -44,6 +47,14 @@
                 {{wizard.form.time_of_visit.errors}}
                 {{wizard.form.time_of_visit|as_crispy_field}}
             </div>
+
+            <div class="alert alert-info" role="alert">
+                <p style="font-style: italic;">
+                    Please note the following priority levels. LOW for Preventive Maintenance, 
+                    MEDIUM for low-risk incidents and troubleshooting and HIGH for high-risk incidents that require urgency.
+                </p>
+            </div>
+
             <div class="col-12">
                 {{wizard.form.priority_level.errors}}
                 {{wizard.form.priority_level|as_crispy_field}}
@@ -51,7 +62,7 @@
 
             <div class="col-12">
                 <div class="alert alert-info" role="alert">
-                    <p>
+                    <p style="font-style: italic;">
                         If you have people accompanying you, please click the "Add More" button below.
                     </p>
                 </div>
@@ -90,11 +101,7 @@
                 {{wizard.form.reason_for_visit|as_crispy_field}}
             </div>
            
-           <!-- <div class="col-12">
-                {{wizard.form.action_required_status.errors}}
-                {{wizard.form.action_required_status|as_crispy_field}}
-            </div>
-        -->
+           
         </div>
 
         <!-- <table>

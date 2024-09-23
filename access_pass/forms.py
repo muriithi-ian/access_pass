@@ -6,9 +6,9 @@ class DCRulesForm(forms.Form):
 
 class VisitRequestForm(forms.Form):
     PRIORITY_LEVELS = (
-        ('HIGH', 'HIGH'),
-        ('MEDIUM', 'MEDIUM'),
         ('LOW', 'LOW'),
+        ('MEDIUM', 'MEDIUM'),
+        ('HIGH', 'HIGH'),
     )
 
     full_name = forms.CharField(max_length=100, widget=forms.TextInput())

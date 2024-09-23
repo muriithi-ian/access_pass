@@ -7,10 +7,10 @@
         <tr>
             <th></th>
             <th></th>
-            <th><a class="btn btn-sm btn-dark" href="/applicants/all" >All</a></th>
-            <th><a class="btn btn-sm btn-dark" href="/applicants/pending" >Pending</a></th>
-            <th><a class="btn btn-sm btn-dark" href="/applicants/approved" >Approved</a></th>
-            <th><a class="btn btn-sm btn-dark" href="/applicants/rejected" >Rejected</a></th>
+            <th><a class="btn-all" href="/applicants/all" >All</a></th>
+            <th><a class="btn-all" href="/applicants/pending" >Pending</a></th>
+            <th><a class="btn-all" href="/applicants/approved" >Approved</a></th>
+            <th><a class="btn-all" href="/applicants/rejected" >Rejected</a></th>
             <th></th>
             <th></th>
 
@@ -18,13 +18,12 @@
         <tr>
             <th>#</th>
             <th>Visitor</th>
+            <th>Department/Organization</th>
+            <th>Priority</th>
             <th>Time</th>
             <th>Date</th>
-            <th>priority</th>
-            <th>department/organization</th>
-            <th>reason</th>
-            <th>status</th>
-            <th>actions</th>
+            <th>Status</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -34,14 +33,13 @@
         <tr>
             <td>{{ forloop.counter }}</td>
             <td>{{ visit.personnel__full_name }} </td>
+            <td>{{ visit.personnel__organization_department}}</td>
+            <td>{{ visit.priority_level }}</td>
             <td>{{ visit.time_of_visit }}</td>
             <td>{{ visit.date_of_visit }}</td>
-            <td>{{ visit.priority_level }}</td>
-            <td>{{ visit.personnel__organization_department}}</td>
-            <td>{{ visit.reason_for_visit }}</td>
             <td>{{ visit.status }}</td>
             <td>
-                <a href="{% url 'visit_request' visit.id %}" class="btn btn-dark">View</a>
+                <a href="{% url 'visit_request' visit.id %}" class="btn-all">View</a>
             </td>
         </tr>
         {% endif %}

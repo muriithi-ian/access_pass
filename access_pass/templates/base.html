@@ -52,7 +52,7 @@
         <div class="container d-flex align-items-center">
             <!-- <h1 class="logo me-auto"><a href="index.html">e-Visit</a></h1> -->
             <!-- Uncomment below if you prefer to use an image logo -->
-            <a href="/" class="logo me-auto"><img src="https://www.kra.go.ke/templates/kra/images/kra/logoKRA.webp"
+            <a href="/" class="logo me-auto"><img src="https://krahub.kra.go.ke/sites/default/files/kra_logo_white_bg_white_txt.png"
                     alt="" class="img-fluid"></a>
 
             <nav id="navbar" class="navbar">
@@ -67,12 +67,12 @@
                     {% if user.is_authenticated %}
 <!--                    notification count-->
                     <!-- <li><a class="nav-link scrollto" href="{% url 'applicants' %}"><i class="bi bi-bell" style="font-size:20px; font-style:normal;">{% if notifications > 0 %} {{ notifications }} {% endif %}</i></a></li> -->
-                    <li><a class="nav-link scrollto" href="/applicants/pending">{% if notifications > 0 %} <i class="bi bi-bell" style="font-size:20px; font-style:normal;">{{ notifications}} </i> {% endif %} &nbsp;Requests</a></li>
+                    <li><a class="nav-link scrollto" href="/applicants/pending">{% if notifications > 0 %} <i class="bi bi-bell-fill" style="font-size:20px; font-style:normal;">{{ notifications}} </i> {% endif %} &nbsp;Requests</a></li>
                     <!-- user icon -->
-                    <li><a class="nav-link scrollto" href="#">{{request.user}}</a></li>
-                    <li><a class="nav-link scrollto" href="{% url 'signout' %}">Logout</a></li>
+                    <li><a class="nav-link scrollto" href="#"><i class="bi bi-person-circle" style="font-size: 20px;"></i>{{request.user}}</a></li>
+                    <li><a class="nav-link scrollto" href="{% url 'signout' %}"><i class="bi bi-door-open-fill" style="font-size: 20px;"></i>Logout</a></li>
                     {% else %}
-                    <li><a class="nav-link" href="{% url 'signin' %}">ADMIN</a></li>
+                    <li><a class="nav-link" href="{% url 'signin' %}"><i class="bi bi-gear-wide-connected" style="font-size: 20px;"></i></a></li>
                     {% endif %}
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>

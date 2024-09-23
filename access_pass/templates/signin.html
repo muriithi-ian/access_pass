@@ -7,7 +7,7 @@
 {% block content %}
 
 <div class="container" style="display: grid; align-items:center; justify-content:center; margin:auto;">
-    <form class="mt-5 pt-5 min-width-60" style=" min-height:88vh" method="POST">
+    <form class="mt-5 pt-5 min-width-60" style=" min-height:88vh;" method="POST">
     {% csrf_token %}
     <h2 class="text-center">Sign in</h2>
 <!--    email and password fields with name attribute-->
@@ -21,7 +21,9 @@
             <label> Password</label>
             <input type="password" name="password" class="form-control" id="password" placeholder="Enter password" required>
         </div>
-    <button type="submit" class="btn btn-primary">Sign in</button>
+
+        <button type="submit" class="btn-all" style="margin-left: 25%;">Sign in</button>
+    
 </form>
 </div>
 
