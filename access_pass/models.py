@@ -36,6 +36,7 @@ class PersonnelDetail(models.Model):
     mobile_number = models.CharField(max_length=20)
     email_address = models.EmailField()
     organization_department = models.CharField(max_length=100, null=True)
+    equipment_to_be_authorized = models.CharField(max_length=100, null=True)
     primary_personnel = models.BooleanField(default=False)
     created_on = models.DateTimeField(auto_now_add=True)
     visit_request_details_id = models.ForeignKey(VisitRequestDetail, on_delete=models.CASCADE, related_name='personnel')

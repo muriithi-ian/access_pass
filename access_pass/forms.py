@@ -16,6 +16,7 @@ class VisitRequestForm(forms.Form):
     mobile_number = forms.CharField(max_length=20)
     email_address = forms.EmailField()
     organization_department = forms.CharField(max_length=100, label='Organization/Department')
+    equipment_to_be_authorized = forms.CharField(max_length=100, label='Equipment to be authorized')
     reason_for_visit = forms.CharField(max_length=300, widget=forms.Textarea)
     date_of_visit = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'))
     time_of_visit = forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}, format='%H:%M'))

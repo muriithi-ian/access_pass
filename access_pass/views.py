@@ -85,7 +85,6 @@ class AccessFormView(SessionWizardView):
         date_of_visit = form_data[1]['date_of_visit']
         time_of_visit = form_data[1]['time_of_visit']
         priority_level = form_data[1]['priority_level']
-        #action_required_status = form_data[1]['action_required_status']
 
         # save visit request data to database
         visit_request_detail = VisitRequestDetail(
@@ -99,6 +98,7 @@ class AccessFormView(SessionWizardView):
         mobile_number = form_data[1]['mobile_number']
         email_address = form_data[1]['email_address']
         organization_department = form_data[1]['organization_department']
+        equipment_to_be_authorized = form_data[1]['equipment_to_be_authorized']
         primary_personnel = True
         visit_request_details_id = visit_request_detail
 
@@ -106,6 +106,7 @@ class AccessFormView(SessionWizardView):
         personnel_detail = PersonnelDetail(full_name=full_name, id_staff_number=id_staff_number,
                                            mobile_number=mobile_number,
                                            email_address=email_address, organization_department=organization_department,
+                                           equipment_to_be_authorized=equipment_to_be_authorized,
                                            primary_personnel=primary_personnel,
                                            visit_request_details_id=visit_request_details_id)
         personnel_detail.save()
@@ -117,6 +118,7 @@ class AccessFormView(SessionWizardView):
                 mobile_number = personnel['mobile_number']
                 email_address = personnel['email_address']
                 organization_department = personnel['organization_department']
+                equipment_to_be_authorized = personnel['equipment_to_be_authorized']
                 primary_personnel = False
                 visit_request_details_id = visit_request_detail
 
@@ -124,6 +126,7 @@ class AccessFormView(SessionWizardView):
                 personnel_detail = PersonnelDetail(full_name=full_name, id_staff_number=id_staff_number,
                                                    mobile_number=mobile_number,
                                                    email_address=email_address, organization_department=organization_department,
+                                                   equipment_to_be_authorized=equipment_to_be_authorized,
                                                    primary_personnel=primary_personnel,
                                                    visit_request_details_id=visit_request_details_id)
                 personnel_detail.save()
@@ -155,14 +158,13 @@ def tables(request, filter='all'):
     for visit in visits:
         visit.personnel.set(PersonnelDetail.objects.filter(
             visit_request_details_id=visit.id).only('full_name', 'id_staff_number', 'mobile_number', 'email_address',
-                                                    'organization_department', 'primary_personnel'))
+                                                    'organization_department', 'equipment_to_be_authorized', 'primary_personnel'))
 
     data = visits.values(
-        'id', 'reason_for_visit', 'date_of_visit', 'time_of_visit', 'priority_level',
-        'action_required_status', 'status', 'comments', 'comments_by', 'personnel__full_name',
+        'id', 'reason_for_visit', 'date_of_visit', 'time_of_visit', 'priority_level', 'status', 'comments', 'comments_by', 'personnel__full_name',
         'personnel__id_staff_number',
         'personnel__mobile_number', 'personnel__email_address',
-        'personnel__organization_department', 'personnel__primary_personnel'
+        'personnel__organization_department', 'personnel__equipment_to_be_authorized', 'personnel__primary_personnel'
     )
     data = list(data)
 
@@ -187,7 +189,7 @@ def visit_request(request, visit_id):
 
     personnel = personnel.values(
         'id', 'full_name', 'id_staff_number', 'mobile_number', 'email_address',
-        'organization_department', 'primary_personnel'
+        'organization_department', 'equipment_to_be_authorized', 'primary_personnel'
     )
     form = RequestForm()
 
@@ -206,6 +208,7 @@ def print_nda(request, visit_id):
     visit_data = {
         'date_of_visit': visit.date_of_visit,
         'organization_department': personnel.organization_department,
+        'equipment_to_be_authorized': personnel.equipment_to_be_authorized,
         'reason_for_visit': visit.reason_for_visit,
         'full_name': personnel.full_name,
         'email_address': personnel.email_address,
