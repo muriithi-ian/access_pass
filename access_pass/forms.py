@@ -1,5 +1,5 @@
 from django import forms
-
+from datetime import date
 
 class DCRulesForm(forms.Form):
    pass
@@ -18,7 +18,7 @@ class VisitRequestForm(forms.Form):
     organization_department = forms.CharField(max_length=100, label='Organization/Department')
     equipment_to_be_authorized = forms.CharField(max_length=100, label='Equipment to be authorized')
     reason_for_visit = forms.CharField(max_length=300, widget=forms.Textarea)
-    date_of_visit = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'))
+    date_of_visit = forms.DateField(widget=forms.DateInput(attrs={'type': 'date','min': date.today().strftime('%Y-%m-%d')}, format='%Y-%m-%d'))
     time_of_visit = forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}, format='%H:%M'))
     priority_level = forms.ChoiceField(choices=PRIORITY_LEVELS, widget=forms.RadioSelect)
     # nature_of_work = forms.CharField(max_length=300, widget=forms.Textarea)
