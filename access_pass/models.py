@@ -22,7 +22,6 @@ class VisitRequestDetail(models.Model):
     date_of_visit = models.DateField(default= datetime.datetime.now().strftime("%Y-%m-%d"))
     time_of_visit = models.TimeField(default= datetime.datetime.now().strftime("%H:%M"))
     priority_level = models.CharField(max_length=100, choices=PRIORITY_LEVELS)
-    action_required_status = models.TextField()
     status = models.CharField(max_length=100, choices=VISIT_STATUS, default='PENDING')
     created_on = models.DateTimeField(auto_now_add=True)
     modified_on = models.DateTimeField(auto_now_add=True)

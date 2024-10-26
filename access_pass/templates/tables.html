@@ -2,15 +2,27 @@
 {% load static %}
 {% block content %}
 
+<form method="GET" action="">
+    <label for="start_date">Start Date:</label>
+    <input type="date" id="start_date" name="start_date" value="{{ request.GET.start_date }}">
+
+    <label for="end_date">End Date:</label>
+    <input type="date" id="end_date" name="end_date" value="{{ request.GET.end_date }}">
+    
+    <button type="submit" class="btn-all">Filter by Date</button>
+
+    <!-- Download button -->
+    <a href="{% url 'download_report' %}?start_date={{ request.GET.start_date }}&end_date={{ request.GET.end_date }}&status={{ request.GET.status }}" class="btn-all">Download Report</a>
+</form>
 <table class="table" style="margin-top:100px">
     <thead>
         <tr>
             <th></th>
             <th></th>
-            <th><a class="btn-all" href="/applicants/all" >All</a></th>
-            <th><a class="btn-all" href="/applicants/pending" >Pending</a></th>
-            <th><a class="btn-all" href="/applicants/approved" >Approved</a></th>
-            <th><a class="btn-all" href="/applicants/rejected" >Rejected</a></th>
+            <th><a class="btn-all" href="/applicants/all?start_date={{ request.GET.start_date }}&end_date={{ request.GET.end_date }}" >All</a></th>
+            <th><a class="btn-all" href="/applicants/pending?start_date={{ request.GET.start_date }}&end_date={{ request.GET.end_date }}" >Pending</a></th>
+            <th><a class="btn-all" href="/applicants/approved?start_date={{ request.GET.start_date }}&end_date={{ request.GET.end_date }}" >Approved</a></th>
+            <th><a class="btn-all" href="/applicants/rejected?start_date={{ request.GET.start_date }}&end_date={{ request.GET.end_date }}" >Rejected</a></th>
             <th></th>
             <th></th>
 

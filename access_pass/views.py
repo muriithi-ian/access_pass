@@ -1,5 +1,7 @@
+import csv
 from django.core import serializers
 import json
+from openpyxl import Workbook # type: ignore
 
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth import authenticate, login, logout
@@ -62,7 +64,7 @@ def get_reason_for_visit_data(wizard):
 
 
 class AccessFormView(SessionWizardView):
-    current_date = datetime.datetime.now().strftime("%Y %m %d")
+    current_date = datetime.datetime.now().strftime("%Y-%m-%d")
 
     # initial_dict = {
     #     'visit_request': {'date_of_visit': datetime.datetime.now().strftime("%d/%m/%Y"), 'time_of_visit': datetime.datetime.now().strftime("%H:%M")},
@@ -143,7 +145,12 @@ def success(request):
 def tables(request, filter='all'):
     if not request.user.is_authenticated:
         return redirect('signin')
+    
+     # Get the start and end dates from the GET parameters
+    start_date = request.GET.get('start_date')
+    end_date = request.GET.get('end_date')
 
+    #Initialize the base queryset
     visits = VisitRequestDetail.objects.all()
 
     if filter == 'pending':
@@ -154,6 +161,17 @@ def tables(request, filter='all'):
         visits = VisitRequestDetail.objects.filter(status='REJECTED')
 
     notifications = VisitRequestDetail.objects.filter(status='PENDING').count()
+
+     # Apply the date range filter if both start and end dates are provided
+    if start_date and end_date:
+        # Convert the string dates to datetime objects
+        try:
+            start_date = datetime.datetime.strptime(start_date, '%Y-%m-%d')
+            end_date = datetime.datetime.strptime(end_date, '%Y-%m-%d')
+            visits = visits.filter(date_of_visit__range=[start_date, end_date])
+        except ValueError:
+            # Handle incorrect date format
+            pass
 
     for visit in visits:
         visit.personnel.set(PersonnelDetail.objects.filter(
@@ -168,9 +186,53 @@ def tables(request, filter='all'):
     )
     data = list(data)
 
-    context = {'visits': data, 'notifications': notifications}
+    context = {'visits': data, 'notifications': notifications, 'start_date': start_date, 'end_date': end_date}
     return render(request, 'tables.html', context)
 
+def download_report(request):
+    start_date = request.GET.get('start_date')
+    end_date = request.GET.get('end_date')
+
+    # Initialize the base queryset
+    visits = VisitRequestDetail.objects.all()
+
+    # Apply the date range filter if both start and end dates are provided
+    if start_date and end_date:
+        try:
+            start_date = datetime.datetime.strptime(start_date, '%Y-%m-%d')
+            end_date = datetime.datetime.strptime(end_date, '%Y-%m-%d')
+            visits = visits.filter(date_of_visit__range=[start_date, end_date])
+        except ValueError:
+            # Handle incorrect date format
+            pass
+
+     # Create an Excel response
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename="request_report.xlsx"'
+    
+    # Create a Workbook
+    workbook = Workbook()
+    sheet = workbook.active
+
+    # Write header
+    sheet.append(['Full Name', 'ID Number', 'Email', 'Organization', 'Priority Level', 'Date of Visit', 'Reason for Visit', 'Status'])
+
+    # Write the data rows
+    for req in visits:
+        personnel_list = req.personnel.all()  # Get all personnel related to this visit request
+        for personnel in personnel_list:
+            sheet.append([
+                personnel.full_name,
+                personnel.id_staff_number,
+                personnel.email_address,
+                personnel.organization_department,
+                req.priority_level,
+                req.date_of_visit.strftime('%Y-%m-%d'),
+                req.reason_for_visit,
+                req.status
+            ])
+    workbook.save(response)        
+    return response
 
 def visit_request(request, visit_id):
     if not request.user.is_authenticated:

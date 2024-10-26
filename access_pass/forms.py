@@ -11,7 +11,7 @@ class VisitRequestForm(forms.Form):
         ('HIGH', 'HIGH'),
     )
 
-    full_name = forms.CharField(max_length=100, widget=forms.TextInput())
+    full_name = forms.CharField(max_length=100, min_length=10, widget=forms.TextInput())
     id_staff_number = forms.CharField(max_length=100,label='ID/Staff Number')
     mobile_number = forms.CharField(max_length=20)
     email_address = forms.EmailField()

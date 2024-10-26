@@ -10,6 +10,7 @@ urlpatterns = [
     path('success/', views.success, name='success'),
     path('applicants/', views.tables, name='applicants'),
     path('applicants/<filter>', views.tables, name='applicants'),
+    path('download_report/', views.download_report, name='download_report'),
     path('visit_request/<int:visit_id>', views.visit_request, name='visit_request'),
     path('accept/', views.tables, name='accept'),
     path('decline/', views.tables, name='decline'),
